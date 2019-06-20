@@ -1,0 +1,14 @@
+module.exports = {
+  types:{
+    FORBIDDEN: 'FORBIDDEN',
+    INTERNAL_ERROR: 'INTERNAL_ERROR'
+  },
+  codes: {
+    HTTP_403: '403',
+    HTTP_500: '500'
+  },
+  messages: {
+    NOT_ENOUGH_RIGHTS: 'NOT ENOUGH RIGHTS TO PROCESS THIS ACTION',
+    TRY_AGAIN: 'SOMETHING WRONG HAPPENED, TRY AGAIN IN FEW MINUTES'
+  }
+}

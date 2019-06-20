@@ -1,0 +1,108 @@
+body{
+  background-color: black !important;
+}
+
+.fa {
+  color: white !important;
+}
+
+.page-content{
+  margin-top: 82px;
+}
+
+footer{
+  background-color: black;
+  color: white;
+}
+
+footer .logo-container img{
+  margin-top: -18px;
+  /* margin-left: 460px; */
+  width: 260px;
+}
+
+footer .social {
+  margin-top: 0px;
+  padding-top: 60px;
+}
+
+footer .social span {
+  width: 100%;
+  font-size: 20px;
+  color: white;
+  font-style: italic;
+}
+
+footer .social a{
+  margin: 20px 30px 10px 30px;
+  font-size: 40px;
+}
+
+footer a {
+  color: white;
+}
+
+footer .risky-play{
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.gold-transition {
+  /* height: 80px; */
+  background: -webkit-linear-gradient(to right, #8D7127, #F5D765);
+  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #8D7127, #F5D765);
+  /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  --theme-color: linear-gradient(to right, #8D7127, #F5D765);
+  color: white;
+  font-size: 36px;
+  text-align: center;
+  padding: 20px;
+}
+
+#homepage #pack-container{
+  background: url('../img/background.jpg');
+  background-size: cover;
+}
+
+#homepage #pack-container img{
+  width: 100%;
+}
+
+.text-near-pack {
+  color:white !important;
+  font-size: 28px;
+  text-align: center;
+  padding: 80px;
+}
+
+.text-near-pack span{
+  margin: 20px;
+  font-style: italic;
+}
+
+.vertical-align {
+  display: flex;
+  align-items: center;
+}
+
+
+/* For Tabs */
+
+@media only screen and (min-width: 480px) and (max-width: 960px) {
+}
+
+/* Common For Tabs and Laptops */
+
+@media only screen and (min-width: 480px) {
+
+}
+
+/* For Mobiles */
+
+@media only screen and (max-width: 480px) {
+  footer .social {
+    padding-top: 0px;
+  }
+
+}

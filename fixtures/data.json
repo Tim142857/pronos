@@ -1,0 +1,27 @@
+[
+  {
+    "model": "User",
+    "data": {
+      "pseudo": "pseudoTest",
+      "email": "emailTest@test.fr",
+      "password": "passwordTest"
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "pseudo": "Tim",
+      "email": "timothyleroch@gmail.com",
+      "password": "password"
+    }
+  },
+  {
+    "model": "User",
+    "data": {
+      "pseudo": "admin",
+      "email": "admin@admin.fr",
+      "password": "1234",
+      "isAdmin": true
+    }
+  }
+]
