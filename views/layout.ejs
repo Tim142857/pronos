@@ -49,6 +49,9 @@
     <nav>
       <ul class="navigation">
         <li class="has-sub">
+          <span class="dropdown-heading" data-target="">Accueil</span>
+        </li>
+        <li class="has-sub">
           <span class="dropdown-heading" data-target="pack-prive">Pack privé</span>
           <ul>
             <li> <a href="#1"> sub item 1</a></li>
@@ -186,13 +189,13 @@
       <%-pageContent%>
     </div>
     <!--dim background effect when open menu-->
-    <div class="dim-overlay" style="display: none"> </div>
+    <!-- <div class="dim-overlay" style="display: none"> </div> -->
 
   </body>
 
   <footer>
     <div class="container-fluid">
-      <div class="row">
+      <div class="row vertical-align">
         <div class="logo-container col-sm-4">
           <img src="img/logo_gris.png" class="rounded mx-auto d-block img-fluid" alt="logo">
         </div>
@@ -205,8 +208,20 @@
           <a href="https://www.snapchat.com/add/ya-35" target="_blank"><i class="fa fa-snapchat fa-lg"></i></a>
         </div>
         <div class="risky-play text-center col-sm-4">
-          © Youenn YA - 2019 all rights reserved<br>
-          CGU / CGV | Politique de confidentialité<br>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <img src="img/snapcode.jpeg" alt="snapcode" class="img-fluid" style="margin: 20px 0px 0px 0px">
+              <p class="text-center">youenn-ya 35</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 offset-md-3">
+              <p class="text-center">
+                © Youenn YA - 2019 all rights reserved<br>
+                CGU / CGV | Politique de confidentialité<br>
+              </p>
+            </div>
+          </div>
         </div>
       </div>
       <div class="row" style="background-color:white">

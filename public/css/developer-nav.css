@@ -1311,7 +1311,7 @@ article h2 {
 		display: none !important;
 	}
 	.navigation:nth-child(1n){
-		margin-left: 562px;
+		margin-left: 15%;
 	}
 	.dev-nav {
 		font-family: 'Titillium Web', sans-serif;
