@@ -8,7 +8,6 @@
 //   // DEV - display MySQL logs in stdout when true
 //   inspect: false
 // }
-mysql://b8c6e02fe419cb:14eff41a@eu-cdbr-west-02.cleardb.net/heroku_35a3f75ec8405f1?reconnect=true
 module.exports = {
   host: 'eu-cdbr-west-02.cleardb.net',
   // port: 3306,
