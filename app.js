@@ -202,6 +202,6 @@ app.use(function(err, req, res, next) {
   // res.render('error');
 });
 let port = 3003;
-app.listen(process.env.PORT || port, function () {
+app.listen(port, function () {
   console.log('Example app listening on port ' + port)
 })

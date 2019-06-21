@@ -891,7 +891,7 @@ body {
 
 .logo {
 	position: absolute;
-	left: 65px;
+	/* left: 65px; */
 	top: 8px;
 }
 
@@ -1179,11 +1179,12 @@ article h2 {
 @media only screen and (min-width: 960px) {
 
 	.navigation li:hover{
-		text-decoration: underline;;
+		text-decoration: underline;
+		color: grey;
 	}
 	nav {
 		position: relative;
-		padding-left: 30%;
+		padding-left: 2%;
 	}
 	.navigation li {
 		display: inline-block;
@@ -1215,7 +1216,7 @@ article h2 {
 	}
 	.logo {
 		position: absolute;
-		left: 8%;
+		/* left: 0%; */
 		display: inline;
 	}
 	.menu-trigger {
@@ -1311,7 +1312,7 @@ article h2 {
 		display: none !important;
 	}
 	.navigation:nth-child(1n){
-		margin-left: 15%;
+		margin-left: 11%;
 	}
 	.dev-nav {
 		font-family: 'Titillium Web', sans-serif;
@@ -1396,24 +1397,24 @@ article h2 {
 @media only screen and (min-width: 1280px) {
 	.logo {
 		position: absolute;
-		left: 20%;
+		/* left: 12%; */
 	}
 	nav {
 		position: relative;
 		padding-left: 10px;
-		left: 36%;
+		left: 10%;
 	}
 }
 
 @media only screen and (min-width: 1600px) {
 	.logo {
 		position: absolute;
-		left: 20%;
+		/* left: 20%; */
 	}
 	nav {
 		position: relative;
 		padding-left: 10px;
-		left: 34%;
+		left: 28%;
 	}
 }
 

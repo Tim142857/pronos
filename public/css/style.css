@@ -2,6 +2,11 @@ body{
   background-color: black !important;
 }
 
+a:hover{
+  text-decoration: underline;
+  color: grey;
+}
+
 .fa {
   color: white !important;
 }
@@ -22,8 +27,6 @@ footer .logo-container img{
 }
 
 footer .social {
-  margin-top: 0px;
-  padding-top: 60px;
 }
 
 footer .social span {
