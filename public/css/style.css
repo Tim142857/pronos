@@ -76,12 +76,11 @@ footer .risky-play{
   color:white !important;
   font-size: 28px;
   text-align: center;
-  padding: 80px;
+  padding: 60px;
 }
 
 .text-near-pack span{
   margin: 20px;
-  font-style: italic;
 }
 
 .vertical-align {
@@ -135,6 +134,10 @@ a {
   text-align: center;
   -webkit-border-radius: 0 0 10px 10px;
   border-radius: 0 0 10px 10px;
+}
+
+#formFooter a{
+  color: #DCDCDC;
 }
 
 
@@ -352,6 +355,10 @@ input[type=text]:placeholder {
 @media only screen and (max-width: 480px) {
   footer .social {
     padding-top: 0px;
+  }
+  .container-fluid{
+    padding-right: 0px;
+    padding-left: 0px;
   }
 
 }
