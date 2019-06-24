@@ -891,7 +891,7 @@ body {
 
 .logo {
 	position: absolute;
-	/* left: 65px; */
+	left: 120px;
 	top: 8px;
 }
 
@@ -1216,7 +1216,7 @@ article h2 {
 	}
 	.logo {
 		position: absolute;
-		/* left: 0%; */
+		left: 0px;
 		display: inline;
 	}
 	.menu-trigger {
@@ -1397,7 +1397,7 @@ article h2 {
 @media only screen and (min-width: 1280px) {
 	.logo {
 		position: absolute;
-		/* left: 12%; */
+		left: 120px;
 	}
 	nav {
 		position: relative;
@@ -1409,7 +1409,7 @@ article h2 {
 @media only screen and (min-width: 1600px) {
 	.logo {
 		position: absolute;
-		/* left: 20%; */
+		left: 120px;
 	}
 	nav {
 		position: relative;
