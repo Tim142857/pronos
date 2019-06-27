@@ -121,7 +121,7 @@ app.get('/login', function (req, res) {
     header: 'Page Header',
     // user: EXAMPLE_USER
   };
-  res.render('connexion', locals)
+  res.render('login', locals)
   // res.redirect('/');
   // res.render('login')
 })

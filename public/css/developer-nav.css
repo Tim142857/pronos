@@ -1071,14 +1071,14 @@ article h2 {
 	overflow: hidden;
 	height: 0px;
 	transition: .360s;
-	background: #fff;
+	background-color: black;
 }
 
 .has-sub ul li a {
 	display: block;
 	font-size: 13px;
 	border-bottom: 0;
-	color: #333;
+	color: white;
 	padding-left: 32px;
 	height: 37px;
 }

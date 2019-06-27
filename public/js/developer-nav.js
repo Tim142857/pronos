@@ -5,13 +5,6 @@
 *   Copyright (c) 2018 - Asif Mughal
 */
 
-/*   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
-NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
-OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
-WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE. */
 
 $(document).ready(function() {
   var topBar = $(".dev-head");
@@ -114,9 +107,13 @@ $(document).ready(function() {
 
   });
   //DropDown
-  $(".dropdown-heading").click(function() {
-    var target = $(this).data('target');
-    window.location.href = target;
+  $(".dropdown-heading").on("click mouseover", function(e) {
+    let next = $(this).next();
+    if(!next.is("ul") && e.type === "click") {
+      var target = $(this).data('target');
+      window.location.href = target;
+      return
+    }
     $(this).toggleClass("down");
     var n = $(".has-sub").find("span:hover + ul li").length;
     var slider = $(".has-sub").find("span:hover + ul li .slideshow-container").height();
@@ -149,7 +146,7 @@ $(document).ready(function() {
 
 
       //close drop down if user click outside of it
-      $(window).click(function(e) {
+      $(window).hover(function(e) {
         if (e.target.id == "has-sub")
         return;
         if ($(e.target).closest('.has-sub').length)

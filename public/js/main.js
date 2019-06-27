@@ -1,29 +1,29 @@
 /*!
- * Lightbox v2.9.0
- * by Lokesh Dhakar
- *
- * More info:
- * http://lokeshdhakar.com/projects/lightbox2/
- *
- * Copyright 2007, 2015 Lokesh Dhakar
- * Released under the MIT license
- * https://github.com/lokesh/lightbox2/blob/master/LICENSE
- */
+* Lightbox v2.9.0
+* by Lokesh Dhakar
+*
+* More info:
+* http://lokeshdhakar.com/projects/lightbox2/
+*
+* Copyright 2007, 2015 Lokesh Dhakar
+* Released under the MIT license
+* https://github.com/lokesh/lightbox2/blob/master/LICENSE
+*/
 
 // Uses Node, AMD or browser globals to create a module.
 (function (root, factory) {
-    if (typeof define === 'function' && define.amd) {
-        // AMD. Register as an anonymous module.
-        define(['jquery'], factory);
-    } else if (typeof exports === 'object') {
-        // Node. Does not work with strict CommonJS, but
-        // only CommonJS-like environments that support module.exports,
-        // like Node.
-        module.exports = factory(require('jquery'));
-    } else {
-        // Browser globals (root is window)
-        root.lightbox = factory(root.jQuery);
-    }
+  if (typeof define === 'function' && define.amd) {
+    // AMD. Register as an anonymous module.
+    define(['jquery'], factory);
+  } else if (typeof exports === 'object') {
+    // Node. Does not work with strict CommonJS, but
+    // only CommonJS-like environments that support module.exports,
+    // like Node.
+    module.exports = factory(require('jquery'));
+  } else {
+    // Browser globals (root is window)
+    root.lightbox = factory(root.jQuery);
+  }
 }(this, function ($) {
 
   function Lightbox(options) {
@@ -58,7 +58,7 @@
 
     If the caption data is user submitted or from some other untrusted source, then set this to true
     to prevent xss and other injection attacks.
-     */
+    */
     sanitizeTitle: false
   };
 
@@ -157,25 +157,25 @@
     });
 
     /*
-      Show context menu for image on right-click
+    Show context menu for image on right-click
 
-      There is a div containing the navigation that spans the entire image and lives above of it. If
-      you right-click, you are right clicking this div and not the image. This prevents users from
-      saving the image or using other context menu actions with the image.
+    There is a div containing the navigation that spans the entire image and lives above of it. If
+    you right-click, you are right clicking this div and not the image. This prevents users from
+    saving the image or using other context menu actions with the image.
 
-      To fix this, when we detect the right mouse button is pressed down, but not yet clicked, we
-      set pointer-events to none on the nav div. This is so that the upcoming right-click event on
-      the next mouseup will bubble down to the image. Once the right-click/contextmenu event occurs
-      we set the pointer events back to auto for the nav div so it can capture hover and left-click
-      events as usual.
-     */
+    To fix this, when we detect the right mouse button is pressed down, but not yet clicked, we
+    set pointer-events to none on the nav div. This is so that the upcoming right-click event on
+    the next mouseup will bubble down to the image. Once the right-click/contextmenu event occurs
+    we set the pointer events back to auto for the nav div so it can capture hover and left-click
+    events as usual.
+    */
     this.$nav.on('mousedown', function(event) {
       if (event.which === 3) {
         self.$nav.css('pointer-events', 'none');
 
         self.$lightbox.one('contextmenu', function() {
           setTimeout(function() {
-              this.$nav.css('pointer-events', 'auto');
+            this.$nav.css('pointer-events', 'auto');
           }.bind(self), 0);
         });
       }
@@ -329,8 +329,8 @@
   // Stretch overlay to fit the viewport
   Lightbox.prototype.sizeOverlay = function() {
     this.$overlay
-      .width($(document).width())
-      .height($(document).height());
+    .width($(document).width())
+    .height($(document).height());
   };
 
   // Animate the size of the lightbox to fit the image we are showing
@@ -415,7 +415,7 @@
     // Enable anchor clicks in the injected caption html.
     // Thanks Nate Wright for the fix. @https://github.com/NateWr
     if (typeof this.album[this.currentImageIndex].title !== 'undefined' &&
-      this.album[this.currentImageIndex].title !== '') {
+    this.album[this.currentImageIndex].title !== '') {
       var $caption = this.$lightbox.find('.lb-caption');
       if (this.options.sanitizeTitle) {
         $caption.text(this.album[this.currentImageIndex].title);
@@ -423,13 +423,13 @@
         $caption.html(this.album[this.currentImageIndex].title);
       }
       $caption.fadeIn('fast')
-        .find('a').on('click', function(event) {
-          if ($(this).attr('target') !== undefined) {
-            window.open($(this).attr('href'), $(this).attr('target'));
-          } else {
-            location.href = $(this).attr('href');
-          }
-        });
+      .find('a').on('click', function(event) {
+        if ($(this).attr('target') !== undefined) {
+          window.open($(this).attr('href'), $(this).attr('target'));
+        } else {
+          location.href = $(this).attr('href');
+        }
+      });
     }
 
     if (this.album.length > 1 && this.options.showImageNumberLabel) {
@@ -512,15 +512,15 @@
 jQuery(document).ready(function($){
   var slidesWrapper = $('.cd-hero-slider');
 
-  //check if a .cd-hero-slider exists in the DOM 
+  //check if a .cd-hero-slider exists in the DOM
   if ( slidesWrapper.length > 0 ) {
     var primaryNav = $('.cd-primary-nav'),
-      sliderNav = $('.cd-slider-nav'),
-      navigationMarker = $('.cd-marker'),
-      slidesNumber = slidesWrapper.children('li').length,
-      visibleSlidePosition = 0,
-      autoPlayId,
-      autoPlayDelay = 5000;
+    sliderNav = $('.cd-slider-nav'),
+    navigationMarker = $('.cd-marker'),
+    slidesNumber = slidesWrapper.children('li').length,
+    visibleSlidePosition = 0,
+    autoPlayId,
+    autoPlayDelay = 5000;
 
     //upload videos (if not on mobile devices)
     uploadVideo(slidesWrapper);
@@ -532,7 +532,7 @@ jQuery(document).ready(function($){
     primaryNav.on('click', function(event){
       if($(event.target).is('.cd-primary-nav')) $(this).children('ul').toggleClass('is-visible');
     });
-    
+
     //change visible slide
     sliderNav.on('click', 'li', function(event){
       event.preventDefault();
@@ -540,8 +540,8 @@ jQuery(document).ready(function($){
       if(!selectedItem.hasClass('selected')) {
         // if it's not already selected
         var selectedPosition = selectedItem.index(),
-          activePosition = slidesWrapper.find('li.selected').index();
-        
+        activePosition = slidesWrapper.find('li.selected').index();
+
         if( activePosition < selectedPosition) {
           nextSlide(slidesWrapper.find('.selected'), slidesWrapper, sliderNav, selectedPosition);
         } else {
@@ -606,9 +606,9 @@ jQuery(document).ready(function($){
     container.find('.cd-bg-video-wrapper').each(function(){
       var videoWrapper = $(this);
       if( videoWrapper.is(':visible') ) {
-        // if visible - we are not on a mobile device 
+        // if visible - we are not on a mobile device
         var videoUrl = videoWrapper.data('video'),
-          video = $('<video loop><source src="'+videoUrl+'.mp4" type="video/mp4" /><source src="'+videoUrl+'.webm" type="video/webm" /></video>');
+        video = $('<video loop><source src="'+videoUrl+'.mp4" type="video/mp4" /><source src="'+videoUrl+'.webm" type="video/webm" /></video>');
         video.appendTo(videoWrapper);
         // play video if first slide
         if(videoWrapper.parent('.cd-bg-video.selected').length > 0) video.get(0).play();
@@ -632,12 +632,14 @@ jQuery(document).ready(function($){
 
   $.fn.removeClassPrefix = function(prefix) {
     //remove all classes starting with 'prefix'
-      this.each(function(i, el) {
-          var classes = el.className.split(" ").filter(function(c) {
-              return c.lastIndexOf(prefix, 0) !== 0;
-          });
-          el.className = $.trim(classes.join(" "));
+    this.each(function(i, el) {
+      var classes = el.className.split(" ").filter(function(c) {
+        return c.lastIndexOf(prefix, 0) !== 0;
       });
-      return this;
+      el.className = $.trim(classes.join(" "));
+    });
+    return this;
   };
+
+  $( document ).tooltip();
 });
