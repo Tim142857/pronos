@@ -190,7 +190,7 @@ app.get('/pack/:packName', function (req, res) {
   } else {
     Pack.findOne({ where: { name: req.params.packName } })
     .then(pack => {
-      res.render('packunlogged', { pack })
+      res.render('testpackdemerde', { pack })
     })
   }
 })
