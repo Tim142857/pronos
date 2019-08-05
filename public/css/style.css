@@ -442,26 +442,39 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 
 /* NAVBAR */
 
-@media screen and (max-width: 768px) {
-  .side-collapse-container{
-    width:100%;
-    position:relative;
-    left:0;
-    transition:left .4s;
-  }
-  .side-collapse-container.out{
-    left:200px;
-  }
-  .side-collapse {
-    top:50px;
-    bottom:0;
-    left:0;
-    width:200px;
-    position:fixed;
-    overflow:hidden;
-    transition:width .4s;
-  }
-  .side-collapse.in {
-    width:0;
-  }
+* {
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+ul {
+  margin: 0;
+  padding: 1em;
+}
+
+ul li {
+  line-height: 2em;
+  list-style: square;
+}
+
+nav .btn{
+  background-color: black;
+  color: white;
+}
+
+nav .btn:hover{
+  text-decoration: underline;
+  color: white;
+}
+
+.dropdown-menu{
+  background-color: black;
+  line-height: 60px;
+}
+
+.dropdown-item:hover{
+  background-color: black;
+  color: white;
+  text-decoration: underline;
 }

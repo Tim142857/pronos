@@ -20,6 +20,7 @@
         <input type="text" id="mail" class="fadeIn third" name="email" placeholder="email">
         <input type="text" id="password-confirm" class="fadeIn fourth" name="passwordconfirm" placeholder="mot de passe">
         <input type="text" id="password" class="fadeIn fourth" name="password" placeholder="confirmer mot de passe">
+        <input type="hidden" value="<% if(!isNullOrUndefined(redirectTo)){ %><%= redirectTo %><% } %>" name="redirectTo">
         <input type="submit" class="fadeIn fifth" value="S'inscrire">
       </form>
 

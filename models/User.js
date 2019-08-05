@@ -53,5 +53,8 @@ module.exports = sequelize.define('user', {
   timestamps: true,
   defaultScope: {
     attributes: { exclude: ['password'] },
+  },
+  scopes: {
+    withPassword: { where: { ghost: false } }
   }
 });

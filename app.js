@@ -13,17 +13,9 @@ const fileUpload = require('express-fileupload');
 const Middlewares = require('./middlewares')
 const Errors = require('./constants').errors;
 const { UserManager, StripeManager } = require('./managers')
-const { Log, Pack, Post } = require('./models')
+const { Log, Pack, Post, User } = require('./models')
 
 const PATH_TO_PUBLIC_LAYOUT = 'layouts/layoutPublic';
-
-const EXAMPLE_USER = {
-  pseudo: "Toto",
-  email: 'toto@gmail.com',
-  password: 'Pa$$w0rd',
-  paymentDate: "25/07"
-}
-
 
 var app = express();
 app.use(express.static('public'));
@@ -84,10 +76,6 @@ app.get('/dev/connexion', function (req, res) {
   })
 })
 
-app.get('/dev/espace-perso', function (req, res) {
-  res.render('espace-perso')
-})
-
 //PUBLIC ROUTES
 app.get(['/', '/accueil'], function (req, res) {
   res.locals.title = 'Youenn YA - Accueil';
@@ -96,13 +84,18 @@ app.get(['/', '/accueil'], function (req, res) {
 
 app.get('/inscription', function (req, res) {
   res.locals.title = 'Youenn YA - Inscription';
-  res.render('inscription')
+  var redirectTo = '';
+  if(req.get('Referrer') && req.get('Referrer').indexOf('inscription')== -1 && req.get('Referrer').indexOf('connexion')== -1) { //Si on vient pas de /connexion ou /inscription, il faut rediriger après inscription
+    redirectTo = req.get('Referrer');
+  }
+  res.render('inscription', {redirectTo})
 })
 app.post('/inscription', function (req, res, next) {
   let email = req.body.email;
   let password = req.body.password;
   let passwordconfirm = req.body.passwordconfirm;
   let pseudo = req.body.pseudo;
+  let redirectTo = req.body.redirectTo;
   if(password.length == 0 || password !== passwordconfirm){
     req.flash('warning', 'Vous devez entrer 2 mot de passe identiques');
     res.redirect('/inscription');
@@ -115,7 +108,11 @@ app.post('/inscription', function (req, res, next) {
     .then(user => {
       if(user) {
         req.session.user = user;
-        res.redirect('/')
+        if(redirectTo != ''){
+          res.redirect(redirectTo)
+        } else {
+          res.redirect('/')
+        }
       }
     })
   })
@@ -176,61 +173,73 @@ app.get('/deconnexion', function (req, res) {
   res.redirect('/');
 })
 
-//LOGGED ROUTES
-app.get('/test', Middlewares.isLogged, function (req, res) {
-  res.render('paymentTest', { user: EXAMPLE_USER })
+
+app.get('/pack/:packName', function (req, res) {
+  if(req.session && req.session.user){
+    Pack.findOne({ where: { name: req.params.packName } })
+    .then(pack => {
+      UserManager.getSubscriptions(req.session.user, pack)
+      .then(objectList => {
+        if(objectList.data.length > 0){
+          res.redirect('/pronos/' + req.params.packName)
+        } else {
+          res.render('pack', { pack })
+        }
+      })
+    })
+  } else {
+    Pack.findOne({ where: { name: req.params.packName } })
+    .then(pack => {
+      res.render('packUnLogged', { pack })
+    })
+  }
 })
 
+//LOGGED ROUTES
 app.get('/espace-perso', Middlewares.isLogged, function (req, res) {
   res.locals.title = 'Youenn YA - Espace personnel';
-  res.render('espace-perso')
-})
-
-app.get('/pack/:packName', Middlewares.isLogged, function (req, res) {
-  Pack.findOne({ where: { name: req.params.packName } })
-  .then(pack => {
-    UserManager.getSubscriptions(req.session.user, pack)
-    .then(objectList => {
-      if(objectList.data.length > 0){
-        res.redirect('/pronos/' + req.params.packName)
-      } else {
-        res.render('pack', { pack })
-      }
-    })
+  User.scope('withPassword').findAll({ where: { id: req.session.user.id } })
+  .then(users => {
+    res.render('espace-perso', { user: users[0] })
   })
 })
 
-app.get('/pronos/:packName', Middlewares.isLogged,function (req, res) {
+
+app.get('/pronos/:packName',function (req, res) {
   res.locals.title = 'Youenn YA - Espace personnel';
-  //Check if user can access this pack
-  Pack.findOne({ where: { name: req.params.packName }})
-  .then(pack => {
-    UserManager.checkIfSubscribe(req.session.user, pack)
-    .then(enoughRights => {
-      //if use rcan access, get last post from this pack
-      if(enoughRights) {
-        Post.findOne({
-          include: [{
-            model: Pack,
-            as: 'pack',
-            where: { name: req.params.packName }
-          }],
-          order: [ [ 'createdAt', 'DESC' ]]
-        })
-        .then(post => {
-          if(post){
-            res.render('pronos', { post })
-          } else {
-            req.flash('warning', "Pas encore de pronostic posté par Youenn pour ce pack")
-            res.redirect('/');
-          }
-        })
-      } else {
-        //if user cant access this pack, redirect to subcription page of this pack
-        res.render('pack', { pack: pack })
-      }
+  if(!req.session || !req.session.user){
+    res.redirect('/pack/' + req.params.packName)
+  } else {
+    //Check if user can access this pack
+    Pack.findOne({ where: { name: req.params.packName }})
+    .then(pack => {
+      UserManager.checkIfSubscribe(req.session.user, pack)
+      .then(enoughRights => {
+        //if use rcan access, get last post from this pack
+        if(enoughRights) {
+          Post.findOne({
+            include: [{
+              model: Pack,
+              as: 'pack',
+              where: { name: req.params.packName }
+            }],
+            order: [ [ 'createdAt', 'DESC' ]]
+          })
+          .then(post => {
+            if(post){
+              res.render('pronos', { post })
+            } else {
+              req.flash('warning', "Pas encore de pronostic posté par Youenn pour ce pack")
+              res.redirect('/');
+            }
+          })
+        } else {
+          //if user cant access this pack, redirect to subcription page of this pack
+          res.render('pack', { pack: pack })
+        }
+      })
     })
-  })
+  }
 })
 
 app.post('/suscribe', Middlewares.isLogged, function (req, res) {

@@ -28,17 +28,9 @@ crossorigin="anonymous"></script>
 
 <link href="https://fonts.googleapis.com/css?family=Oswald&display=swap" rel="stylesheet">
 
-<!--Developer Nav Script-->
-<!-- <script src="js/developer-nav.js"> </script> -->
-
-<!--Developer Nav CSS-->
-<!-- <link rel="stylesheet" href="css/developer-nav.css" /> -->
 
 <link rel="stylesheet" href="css/style.css" />
 
-
-<!--Demo Only Scripts-->
-<!--Demo main script-->
 <script src="js/demo.js"> </script>
 <script src="https://js.stripe.com/v3/"></script>
 
@@ -46,113 +38,125 @@ crossorigin="anonymous"></script>
 <script src="https://cdn.rawgit.com/google/code-prettify/master/loader/run_prettify.js"> </script>
 <meta name="description" content="<%= description %>" />
 
+<!-- New navbar -->
+<link rel="stylesheet" type="text/css" href="css/menu.css">
+
 <%-header%>
 <body>
-
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">Navbar</a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="/accueil">Accueil <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+  <nav>
+    <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle mobile-menu-toggle-button">
+    <ul id="plain-menu" class="mobile-toggleable-menu mobile-left">
+      <li>
+        <button class="btn" type="button">
+          <a href="/accueil">Accueil</a>
+        </button>
+      </li>
+      <li>
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" type="button" id="dropDownPacks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Packs
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/pack/pack-fun">Pack-fun</a>
-            <a class="dropdown-item" href="/pack/pack-champion">Pack-champion</a>
-            <a class="dropdown-item" href="/pack/pack-prive">Pack-prive</a>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropDownPacks">
+            <a class="dropdown-item" href="pack/pack-prive">Pack - Privé</a>
+            <a class="dropdown-item" href="pack/pack-champion">Pack - Champion</a>
+            <a class="dropdown-item" href="pack/pack-fun">Pack - Fun</a>
           </div>
-        </li>
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        </div>
+      </li>
+      <li>
+        <div class="dropdown">
+          <button class="btn dropdown-toggle" type="button" id="dropDownPronos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Pronostics
-          </a>
-          <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="/pronos/pack-fun">Pack-fun</a>
-            <a class="dropdown-item" href="/pronos/pack-champion">Pack-champion</a>
-            <a class="dropdown-item" href="/pronos/pack-prive">Pack-prive</a>
+          </button>
+          <div class="dropdown-menu" aria-labelledby="dropDownPronos">
+            <a class="dropdown-item" href="/pronos/pack-prive">Pronostic - Privé</a>
+            <a class="dropdown-item" href="/pronos/pack-champion">Pronostic - Champion</a>
+            <a class="dropdown-item" href="/pronos/pack-fun">Pronostic - Fun</a>
           </div>
+        </div>
+      </li>
+      <% if(isNullOrUndefined(user)){ %>
+        <li>
+          <button class="btn" type="button">
+            <a href="/connexion">Connexion</a>
+          </button>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/connexion">Connexion</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="/espace-perso">Espace perso</a>
-        </li>
-        <% if(user && user.isAdmin) {%>
-          <li class="nav-item">
-            <a class="nav-link" href="/espace-admin">Espace admin</a>
+        <% } else { %>
+          <li>
+            <button class="btn" type="button">
+              <a href="/espace-perso">Espace perso</a>
+            </button>
+          </li>
+          <li>
+            <button class="btn" type="button">
+              <a href="/deconnexion">Déconnexion</a>
+            </button>
           </li>
           <% } %>
         </ul>
-      </div>
-    </nav>
+        <label class="mobile-left mobmenu-toggle" for="mobile-menu-toggle">+</label>
+      </nav>
 
-    <div style="margin-top: 80px;">
-      <div class="container">
-        <% if ( typeof flashMessages !== 'undefined' ) {
-          for(let [type, messages] of Object.entries(flashMessages)) {
-            for(message of messages){ %>
-              <div class="alert alert-<%= type %> fadeIn second" style="text-align: center" role="alert">
-                <%= message %>
-              </div>
-              <%}
-            }
-          } %>
+
+
+      <div>
+        <div class="container">
+          <% if ( typeof flashMessages !== 'undefined' ) {
+            for(let [type, messages] of Object.entries(flashMessages)) {
+              for(message of messages){ %>
+                <div class="alert alert-<%= type %> fadeIn second" style="text-align: center" role="alert">
+                  <%= message %>
+                </div>
+                <%}
+              }
+            } %>
+          </div>
+
+          <%-pageContent%>
         </div>
+        <!--dim background effect when open menu-->
+        <!-- <div class="dim-overlay" style="display: none"> </div> -->
 
-        <%-pageContent%>
-      </div>
-      <!--dim background effect when open menu-->
-      <!-- <div class="dim-overlay" style="display: none"> </div> -->
+      </body>
 
-    </body>
-
-    <footer>
-      <img style="width:100%" src="img/gold_min.png" id="goldBar">
-      <div class="container-fluid">
-        <div class="row vertical-align">
-          <div class="logo-container col-sm-4">
-            <img src="img/logo_gris.png" class="rounded mx-auto d-block img-fluid" alt="logo">
-          </div>
-          <div class="social col-sm-4">
-            <div class="row">
-              <span class="text-center"> Retrouvez moi sur vos réseaux sociaux préférés :</span>
+      <footer>
+        <img style="width:100%" src="img/gold_min.png" id="goldBar">
+        <div class="container-fluid">
+          <div class="row vertical-align">
+            <div class="logo-container col-sm-4">
+              <img src="img/logo_gris.png" class="rounded mx-auto d-block img-fluid" alt="logo">
             </div>
-            <a href="https://www.facebook.com/profile.php?id=100009631203408" target="_blank"><i class="fa fa-facebook-f fa-lg"></i></a>
-            <a href="https://www.instagram.com/youenn_yapronos" target="_blank"><i class="fa fa-instagram fa-lg"></i></a>
-            <a href="https://www.snapchat.com/add/ya-35" target="_blank"><i class="fa fa-snapchat fa-lg"></i></a>
-          </div>
-          <div class="risky-play text-center col-sm-4">
-            <div class="row">
-              <div class="col-md-6 offset-md-3">
-                <img src="img/snapcode.jpeg" alt="snapcode" class="img-fluid" style="margin: 20px 0px 0px 0px">
-                <p class="text-center">ya-35</p>
+            <div class="social col-sm-4">
+              <div class="row">
+                <span class="text-center"> Retrouvez moi sur vos réseaux sociaux préférés :</span>
+              </div>
+              <a href="https://www.facebook.com/profile.php?id=100009631203408" target="_blank"><i class="fa fa-facebook-f fa-lg"></i></a>
+              <a href="https://www.instagram.com/youenn_yapronos" target="_blank"><i class="fa fa-instagram fa-lg"></i></a>
+              <a href="https://www.snapchat.com/add/ya-35" target="_blank"><i class="fa fa-snapchat fa-lg"></i></a>
+            </div>
+            <div class="risky-play text-center col-sm-4">
+              <div class="row">
+                <div class="col-md-6 offset-md-3">
+                  <img src="img/snapcode.jpeg" alt="snapcode" class="img-fluid" style="margin: 20px 0px 0px 0px">
+                  <p class="text-center">ya-35</p>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <p class="text-center">
+                    © Youenn YA Entreprise - 2019 all rights reserved<br>
+                    <a href="/cgu">CGU</a>/<a href="/cgv">CGV</a> | <a href="/mentions-legales">Mentions légales</a><br>
+                  </p>
+                </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col">
-                <p class="text-center">
-                  © Youenn YA Entreprise - 2019 all rights reserved<br>
-                  <a href="/cgu">CGU</a>/<a href="/cgv">CGV</a> | <a href="/mentions-legales">Mentions légales</a><br>
-                </p>
-              </div>
+          </div>
+          <div class="row" style="background-color:white">
+            <div class="risky-play text-center col-sm-12" style="color:black">
+              Jouer comporte des risques : endettement, isolement, dépendance.<br>Pour être aidé, appelez le 09-74-75-13-13 (appel non surtaxé)
             </div>
           </div>
         </div>
-        <div class="row" style="background-color:white">
-          <div class="risky-play text-center col-sm-12" style="color:black">
-            Jouer comporte des risques : endettement, isolement, dépendance.<br>Pour être aidé, appelez le 09-74-75-13-13 (appel non surtaxé)
-          </div>
-        </div>
-      </div>
-    </footer>
-    <!-- <script src="js/main.js"> </script> -->
-    </html>
+      </footer>
+      <!-- <script src="js/main.js"> </script> -->
+      </html>

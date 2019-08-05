@@ -651,3 +651,10 @@ jQuery(document).ready(function($){
     $(sel2).toggleClass('out');
   });
 });
+
+
+$('li.dropdown').hover(function() {
+  $(this).find('.dropdown-menu').stop(true, true).delay(150).fadeIn(400);
+}, function() {
+  $(this).find('.dropdown-menu').stop(true, true).delay(150).fadeOut(400);
+});
