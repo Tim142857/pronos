@@ -27,7 +27,6 @@ router.get('/register', function (req, res) {
   Models.User.create({ pseudo, email, password
   })
   .then(user => {
-    console.log('user created')
     res.redirect('/')
   })
   .catch(err => {

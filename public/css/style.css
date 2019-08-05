@@ -1,7 +1,12 @@
+
 body{
   background-color: black !important;
   font-family: "Titillium Web" !important;
+  color: white !important;
   /* boldbrush celle de pack privé; bebas neue pour le prix; quantify pour youenn */
+  height: 100%;
+  scroll-behavior: smooth;
+  position: relative;
 }
 
 @font-face {
@@ -15,7 +20,7 @@ a:hover{
 }
 
 .fa {
-  color: white !important;
+  /* color: white !important; */
 }
 
 .page-content{
@@ -101,7 +106,7 @@ footer .risky-play{
 }
 
 .page-content-connexion{
-  padding: 20% 0px 20% 0px;
+  padding: 12% 0px 12% 0px;
 }
 
 
@@ -203,7 +208,7 @@ input[type=button]:active, input[type=submit]:active, input[type=reset]:active  
   transform: scale(0.95);
 }
 
-input[type=text] {
+input[type=text], input[type=password] {
   background-color: #f6f6f6;
   border: none;
   color: #0d0d0d;
@@ -224,12 +229,12 @@ input[type=text] {
   border-radius: 5px 5px 5px 5px;
 }
 
-input[type=text]:focus {
+input[type=text]:focus, input[type=password]:focus {
   background-color: #fff;
   border-bottom: 2px solid #5fbae9;
 }
 
-input[type=text]:placeholder {
+input[type=text]:placeholder, input[type=password]:placeholder {
   color: #cccccc;
 }
 
@@ -416,4 +421,47 @@ input[type=text]:placeholder {
     padding: 20px;
   }
 
+}
+
+
+
+/*  STRIPE  */
+
+
+#payment-form{
+  width: 100%;
+  text-align: center;
+  color: white !important;
+}
+
+#card-element{
+  width: 100%;
+  color: white !important;
+}
+
+
+/* NAVBAR */
+
+@media screen and (max-width: 768px) {
+  .side-collapse-container{
+    width:100%;
+    position:relative;
+    left:0;
+    transition:left .4s;
+  }
+  .side-collapse-container.out{
+    left:200px;
+  }
+  .side-collapse {
+    top:50px;
+    bottom:0;
+    left:0;
+    width:200px;
+    position:fixed;
+    overflow:hidden;
+    transition:width .4s;
+  }
+  .side-collapse.in {
+    width:0;
+  }
 }

@@ -1,4 +1,8 @@
+const Errors = require('../constants').errors;
 module.exports = function (req, res, next) {
-  if(req.session.user.isAdmin) next()
-  res.status(403).send("You don't have the right to process this action!");
+  if(req.session.user && req.session.user.isAdmin){
+    next()
+  } else {
+    throw new Error(Errors.types.FORBIDDEN);
+  }
 }

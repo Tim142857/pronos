@@ -1,0 +1,130 @@
+<%- contentFor('header') %>
+
+<%- contentFor('pageContent') %>
+<div class="col-md-4 offset-md-4 page-content-connexion">
+  <div class="wrapper fadeInDown">
+    <img class="img-fluid" src="/img/packs/<%= pack.name %>.png">
+
+
+
+    <% if(isNullOrUndefined(user.defaultSource)) {%>
+      <form id="payment-form">
+        <div class="form-row">
+          <label for="card-element" class="fadeIn second">
+            Carte de crédit
+          </label><br/><br/><br/>
+          <div id="card-element" class="fadeIn third">
+            <!-- A Stripe Element will be inserted here. -->
+          </div>
+
+          <!-- Used to display Element errors. -->
+          <div id="card-errors" role="alert"></div>
+        </div>
+        <br/><br/>
+        <input type="submit" class="fadeIn fourth" value="AJOUTER CETTE CARTE">
+      </form>
+
+      <% } %>
+      <form action="/suscribe" method="POST">
+        <input type="hidden" name="packStripeId" value="<%= pack.stripeId %>">
+        <input type="submit" id="submit-suscribe" class="fadeIn fourth <% if(!isNullOrUndefined(user.defaultSource) == false){ %>invisible<% } %>" value="SOUSCRIRE A CE PACK">
+      </form>
+    </div>
+  </div>
+
+  <% if(typeof user.default_source == 'undefined') {%>
+    <script>
+      var stripe = Stripe('pk_test_zopRw2rbITNrU0FAIQqX499M004cqaj1gO');
+      var elements = stripe.elements({
+        fonts: [
+        {
+          cssSrc: "https://rsms.me/inter/inter-ui.css"
+        }
+        ],
+        // Stripe's examples are localized to specific languages, but if
+        // you wish to have Elements automatically detect your user's locale,
+        // use `locale: 'auto'` instead.
+        locale: window.__exampleLocale
+      });
+
+      // Custom styling can be passed to options when creating an Element.
+      const style = {
+        base: {
+          // Add your base input styles here. For example:
+          fontSize: '16px',
+          color: "#32325d",
+        },
+      };
+
+      // Create an instance of the card Element.
+      /**
+      * Card Element
+      */
+      var card = elements.create("card", {
+        style: {
+          base: {
+            color: "#32325D",
+            fontWeight: 500,
+            fontFamily: "Inter UI, Open Sans, Segoe UI, sans-serif",
+            fontSize: "16px",
+            fontSmoothing: "antialiased",
+
+            "::placeholder": {
+              color: "#CFD7DF"
+            }
+          },
+          invalid: {
+            color: "#E25950"
+          }
+        }
+      });
+
+      // Add an instance of the card Element into the `card-element` <div>.
+      card.mount('#card-element');
+
+      card.addEventListener('change', ({error}) => {
+        const displayError = document.getElementById('card-errors');
+        if (error) {
+          displayError.textContent = error.message;
+        } else {
+          displayError.textContent = '';
+        }
+      });
+
+      // Create a token or display an error when the form is submitted.
+      const form = document.getElementById('payment-form');
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        stripe.createSource(card).then(function(result) {
+          if (result.error) {
+            // Inform the user if there was an error
+            var errorElement = document.getElementById('card-errors');
+            errorElement.textContent = result.error.message;
+          } else {
+            // Send the source to your server
+            sendToken(result.source);
+          }
+        });
+
+      });
+      var sendToken = function(token){
+        $.ajax({
+          url : '/create-source',
+          type : 'POST',
+          dataType : 'json',
+          data: token,
+          success : function(data){
+            $('#submit-suscribe').removeClass('invisible');
+            $('#payment-form').addClass('invisible');
+          },
+          error : function(resultat, statut, erreur){
+            console.log('error ajax')
+          }
+
+        });
+      }
+
+
+    </script>
+    <% } %>

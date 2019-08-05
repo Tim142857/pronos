@@ -21,7 +21,47 @@
       "pseudo": "admin",
       "email": "admin@admin.fr",
       "password": "1234",
-      "isAdmin": true
+      "isAdmin": true,
+      "stripeId": "cus_FXNMFHBkgHR7dI",
+      "defaultSource": "src_1F2IgOEpCubiUfNgeI3Yjut8"
+    }
+  },
+  {
+    "model": "Pack",
+    "data": {
+      "id": 1,
+      "name": "pack-prive",
+      "price": 19.99,
+      "stripeId": "plan_FEyXBo7ryamkws",
+      "productStripeId": "prod_FExD39vYIhPQEi"
+    }
+  },
+  {
+    "model": "Pack",
+    "data": {
+      "id": 2,
+      "name": "pack-champion",
+      "price": 4.99,
+      "stripeId": "plan_FSTBju8Oe1WS3K",
+      "productStripeId": "prod_FSSg9K6e9Oqhzo"
+    }
+  },
+  {
+    "model": "Pack",
+    "data": {
+      "id": 3,
+      "name": "pack-fun",
+      "price": 12.99,
+      "stripeId": "plan_FSTDELZIDljLJa",
+      "productStripeId": "prod_FSTDxAeQcfT0Ri"
+    }
+  },
+  {
+    "model": "Post",
+    "data": {
+      "text": "super text du prono pack-fun",
+      "packId": 3,
+      "img": "pack-fun01082019.jpg"
     }
   }
 ]

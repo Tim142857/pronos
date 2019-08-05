@@ -2,6 +2,7 @@ require('rootpath')();
 var Sequelize = require('sequelize');
 var mysqlConf = require('conf').mysql;
 const fixtures = require('sequelize-fixtures');
+const Op = Sequelize.Op;
 
 var sequelize = new Sequelize(mysqlConf.db, mysqlConf.user, mysqlConf.password, {
   host: mysqlConf.host,
@@ -18,6 +19,11 @@ var sequelize = new Sequelize(mysqlConf.db, mysqlConf.user, mysqlConf.password, 
   pool: {
     min: 0,
     max: 1000,
+  },
+  operatorsAliases: {
+    $and: Op.and,
+    $like: Op.like,
+    $or: Op.or
   }
 });
 

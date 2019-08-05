@@ -91,7 +91,7 @@ $(document).ready(function() {
   }
 
   setInterval(function() {
-    var ckh = $(".slideshow-container").is(":hover");
+    var ckh = $(".slideshow-container:hover");
     if (ckh == false) {
       plusSlides(1);
     }

@@ -42,10 +42,16 @@ module.exports = sequelize.define('user', {
   stripeId: {
     type: Sequelize.STRING
   },
+  defaultSource: {
+    type: Sequelize.STRING
+  },
   ghost: {
     type: Sequelize.BOOLEAN,
     defaultValue: false
   }
 }, {
-  timestamps: true
+  timestamps: true,
+  defaultScope: {
+    attributes: { exclude: ['password'] },
+  }
 });

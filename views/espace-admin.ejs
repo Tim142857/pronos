@@ -1,0 +1,267 @@
+<%- contentFor('header') %>
+<link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="/css/richtext.min.css">
+<script src="/js/richtext.min.js"></script>
+<%- contentFor('pageContent') %>
+<div class="container">
+  <h2>Pronostics<h2>
+    <div class="row">
+      <div class="col">
+        <form action="/create-prono" method="post" id="create-prono-form" enctype="multipart/form-data">
+          <div class="form-group">
+            <label for="exampleFormControlSelect1">Pack</label>
+            <select class="form-control" id="exampleFormControlSelect1" name="packId">
+              <% for(var i = 0; i < packs.length; i++){ %>
+                <option value="<%= packs[i].id %>"><%= packs[i].name %></option>
+                <% } %>
+              </select>
+            </div>
+            <div class="form-group">
+              <label for="text">Texte</label>
+              <textarea class="content form-control" name="text"></textarea>
+            </div>
+            <div class="form-group">
+              <label for="exampleFormControlFile1">Image prono</label>
+              <input type="file" class="form-control-file" id="exampleFormControlFile1" name="img">
+            </div>
+            <input type="submit" class="fadeIn fifth" value="Créer pronostic">
+          </form>
+        </div>
+      </div>
+
+      <h2>Membres</h2>
+      <br/><br/>
+      <form class="form-inline">
+        <div class="form-group col-12 col-md-6 offset-md-3">
+          <input type="text" class="form-control-plaintext" id="members-search" placeholder="Tapez un nom, pseudo, addresse mail ...">
+        </div>
+      </form>
+      <br/><br/><br/><br/>
+      <div class="row">
+        <table class='table'>
+          <thead>
+            <tr>
+              <th>Pseudo</th>
+              <th>email</th>
+              <th>créé le</th>
+              <th>VIP</th>
+            </tr>
+          </thead>
+          <tbody id="list-members">
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+
+    <script>
+
+      $('#members-search').on('input', function(){
+        let val = $(this).val();
+        if(val.length > 2){
+          $('#list-members').empty();
+          updateMembersList(val);
+        }
+      })
+
+      var updateMembersList = function(val){
+        getMembersList(val);
+      }
+
+      var getMembersList = function(val){
+        $.ajax({
+          url : '/get-members',
+          type : 'POST',
+          dataType : 'json',
+          data: {'val': val},
+          success : function(users){
+            for(var i = 0; i < users.length; i++){
+              $('#list-members').append(createUserRow(users[i]));
+            }
+          },
+          error : function(resultat, statut, erreur){
+            console.log('error ajax');
+          }
+        });
+      }
+
+      var createUserRow = function(user){
+        let row = '';
+        row += "<tr data-userid='" + user.id + "'>";
+          row += '<td>' + user.pseudo + '</td>';
+          row += '<td>' + user.email + '</td>'
+          row += '<td>' + getFormattedDate(user.createdAt) + '</td>'
+          row += '<td>';
+            row += user.isVip ? '<i class="fa fa-check change-status-button" aria-hidden="true"></i>' : '<i class="fa fa-ban change-status-button" aria-hidden="true"></i></i>';
+            row += '</td>';
+            row += '</tr>';
+            return row;
+          }
+
+          $('#list-members').on('click', '.change-status-button', function(){
+            var userid = $(this).closest('tr').data('userid');
+            $(this).replaceWith('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i>');
+            changeVipStatus(userid);
+          })
+
+          var getFormattedDate = function(seqDate){
+            let day = seqDate.substring(8,10);
+            let month = seqDate.substring(5,7);
+            let year = seqDate.substring(0,4);
+            let formattedDate = day + '/' + month + '/' + year;
+            return formattedDate;
+          }
+
+          var changeVipStatus = function(userId){
+            $.ajax({
+              url : '/change-vip-status',
+              type : 'POST',
+              dataType : 'json',
+              data: { userId },
+              success : function(user){
+                let newIcon = user.isVip ? '<i class="fa fa-check change-status-button" aria-hidden="true"></i>' : '<i class="fa fa-ban change-status-button" aria-hidden="true"></i></i>';
+                $('tr[data-userid="3"]').find('i').replaceWith(newIcon);
+              },
+              error : function(resultat, statut, erreur){
+                console.log('error ajax')
+              }
+            });
+          }
+
+          $('.content').richText();
+
+          // $('.content').richText({
+          //   // text formatting
+          //   bold: true,
+          //   italic: true,
+          //   underline: true,
+          //
+          //   // text alignment
+          //   leftAlign: true,
+          //   centerAlign: true,
+          //   rightAlign: true,
+          //
+          //   // lists
+          //   ol: true,
+          //   ul: true,
+          //
+          //   // title
+          //   heading: true,
+          //
+          //   // fonts
+          //   fonts: true,
+          //   fontList: ["Arial",
+          //   "Arial Black",
+          //   "Comic Sans MS",
+          //   "Courier New",
+          //   "Geneva",
+          //   "Georgia",
+          //   "Helvetica",
+          //   "Impact",
+          //   "Lucida Console",
+          //   "Tahoma",
+          //   "Times New Roman",
+          //   "Verdana"
+          //   ],
+          //   fontColor: true,
+          //   fontSize: true,
+          //
+          //   // uploads
+          //   imageUpload: true,
+          //   fileUpload: true,
+          //
+          //   // media
+          //   <a href="https://www.jqueryscript.net/tags.php?/video/">video</a>Embed: true,
+          //
+          //   // link
+          //   urls: true,
+          //
+          //   // tables
+          //   table: true,
+          //
+          //   // code
+          //   removeStyles: true,
+          //   code: true,
+          //
+          //   // colors
+          //   colors: [],
+          //
+          //   // dropdowns
+          //   fileHTML: '',
+          //   imageHTML: '',
+          //
+          //   // translations
+          //   translations: {
+          //     'title': 'Title',
+          //     'white': 'White',
+          //     'black': 'Black',
+          //     'brown': 'Brown',
+          //     'beige': 'Beige',
+          //     'darkBlue': 'Dark Blue',
+          //     'blue': 'Blue',
+          //     'lightBlue': 'Light Blue',
+          //     'darkRed': 'Dark Red',
+          //     'red': 'Red',
+          //     'darkGreen': 'Dark Green',
+          //     'green': 'Green',
+          //     'purple': 'Purple',
+          //     'darkTurquois': 'Dark Turquois',
+          //     'turquois': 'Turquois',
+          //     'darkOrange': 'Dark Orange',
+          //     'orange': 'Orange',
+          //     'yellow': 'Yellow',
+          //     'imageURL': 'Image URL',
+          //     'fileURL': 'File URL',
+          //     'linkText': 'Link text',
+          //     'url': 'URL',
+          //     'size': 'Size',
+          //     'responsive': '<a href="https://www.jqueryscript.net/tags.php?/Responsive/">Responsive</a>',
+          //     'text': 'Text',
+          //     'openIn': 'Open in',
+          //     'sameTab': 'Same tab',
+          //     'newTab': 'New tab',
+          //     'align': 'Align',
+          //     'left': 'Left',
+          //     'center': 'Center',
+          //     'right': 'Right',
+          //     'rows': 'Rows',
+          //     'columns': 'Columns',
+          //     'add': 'Add',
+          //     'pleaseEnterURL': 'Please enter an URL',
+          //     'videoURLnotSupported': 'Video URL not supported',
+          //     'pleaseSelectImage': 'Please select an image',
+          //     'pleaseSelectFile': 'Please select a file',
+          //     'bold': 'Bold',
+          //     'italic': 'Italic',
+          //     'underline': 'Underline',
+          //     'alignLeft': 'Align left',
+          //     'alignCenter': 'Align centered',
+          //     'alignRight': 'Align right',
+          //     'addOrderedList': 'Add ordered list',
+          //     'addUnorderedList': 'Add unordered list',
+          //     'addHeading': 'Add Heading/title',
+          //     'addFont': 'Add font',
+          //     'addFontColor': 'Add font color',
+          //     'addFontSize' : 'Add font size',
+          //     'addImage': 'Add image',
+          //     'addVideo': 'Add video',
+          //     'addFile': 'Add file',
+          //     'addURL': 'Add URL',
+          //     'addTable': 'Add table',
+          //     'removeStyles': 'Remove styles',
+          //     'code': 'Show HTML code',
+          //     'undo': 'Undo',
+          //     'redo': 'Redo',
+          //     'close': 'Close'
+          //   },
+          //
+          //   // dev settings
+          //   useSingleQuotes: false,
+          //   height: 0,
+          //   heightPercentage: 0,
+          //   id: "",
+          //   class: "",
+          //   useParagraph: false
+          //
+          // });
+        </script>
