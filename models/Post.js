@@ -13,6 +13,11 @@ const Post = sequelize.define('post', {
     type: Sequelize.STRING,
     required: true
   },
+  rating: {
+    type: Sequelize.INTEGER,
+    required: true,
+    defaultValue: 5
+  },
   img: {
     type: Sequelize.STRING,
     required: true

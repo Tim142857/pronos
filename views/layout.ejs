@@ -3,21 +3,20 @@
 <title><%= title %></title>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- <base href="http://localhost:3003"> -->
-<base href="https://youennya-pronos.herokuapp.com/">
-
-
-<!--Font Awesome-->
-<link href="css/fa5/css/all.css" rel="stylesheet" />
+<base href="http://localhost:3003">
+<!-- <base href="https://youennya-pronos.herokuapp.com/"> -->
 
 <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet" />
-
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<!--Font Awesome-->
+<link href="css/fa5/css/all.css" rel="stylesheet" />
 <script
 src="https://code.jquery.com/jquery-3.4.1.min.js"
 integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
 crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
 <!--jQuery-->
 <script
@@ -45,63 +44,93 @@ crossorigin="anonymous"></script>
 
 <%-header%>
 <body>
-  <nav>
-    <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle mobile-menu-toggle-button">
-    <ul id="plain-menu" class="mobile-toggleable-menu mobile-left">
-      <li>
-        <button class="btn" type="button">
-          <a href="/accueil">Accueil</a>
-        </button>
-      </li>
-      <li>
-        <div class="dropdown">
-          <button class="btn dropdown-toggle" type="button" id="dropDownPacks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Packs
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropDownPacks">
-            <a class="dropdown-item" href="pack/pack-prive">Pack - Privé</a>
-            <a class="dropdown-item" href="pack/pack-champion">Pack - Champion</a>
-            <a class="dropdown-item" href="pack/pack-fun">Pack - Fun</a>
-          </div>
-        </div>
-      </li>
-      <li>
-        <div class="dropdown">
-          <button class="btn dropdown-toggle" type="button" id="dropDownPronos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Pronostics
-          </button>
-          <div class="dropdown-menu" aria-labelledby="dropDownPronos">
-            <a class="dropdown-item" href="/pronos/pack-prive">Pronostic - Privé</a>
-            <a class="dropdown-item" href="/pronos/pack-champion">Pronostic - Champion</a>
-            <a class="dropdown-item" href="/pronos/pack-fun">Pronostic - Fun</a>
-          </div>
-        </div>
-      </li>
-      <% if(isNullOrUndefined(user)){ %>
+  <!-- ********************************
+  ********     NAVBAR     ********
+  ******************************** -->
+  <div class="container-fluid">
+    <nav>
+      <input type="checkbox" id="mobile-menu-toggle" class="mobile-menu-toggle mobile-menu-toggle-button">
+      <ul id="plain-menu" class="mobile-toggleable-menu mobile-left">
+        <li style="width:200px">
+          <a href="/accueil"><img class="img-fluid" src='/img/logo.png'></a>
+        </li>
         <li>
           <button class="btn" type="button">
-            <a href="/connexion">Connexion</a>
+            <a href="/accueil">Accueil</a>
           </button>
         </li>
-        <% } else { %>
+        <li>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="dropDownPacks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Packs
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropDownPacks">
+              <a class="dropdown-item" href="pack/pack-prive">Pack - Privé</a>
+              <a class="dropdown-item" href="pack/pack-champion">Pack - Champion</a>
+              <a class="dropdown-item" href="pack/pack-fun">Pack - Fun</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <div class="dropdown">
+            <button class="btn dropdown-toggle" type="button" id="dropDownPronos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              Pronostics
+            </button>
+            <div class="dropdown-menu" aria-labelledby="dropDownPronos">
+              <a class="dropdown-item" href="/pronos/pack-prive">Pronostic - Privé</a>
+              <a class="dropdown-item" href="/pronos/pack-champion">Pronostic - Champion</a>
+              <a class="dropdown-item" href="/pronos/pack-fun">Pronostic - Fun</a>
+            </div>
+          </div>
+        </li>
+        <li>
+          <button class="btn" type="button">
+            <a href="/historique">Historique</a>
+          </button>
+        </li>
+        <% if(isNullOrUndefined(user)){ %>
           <li>
             <button class="btn" type="button">
-              <a href="/espace-perso">Espace perso</a>
+              <a href="/connexion">Connexion</a>
             </button>
           </li>
-          <li>
-            <button class="btn" type="button">
-              <a href="/deconnexion">Déconnexion</a>
-            </button>
-          </li>
-          <% } %>
-        </ul>
-        <label class="mobile-left mobmenu-toggle" for="mobile-menu-toggle">+</label>
-      </nav>
+          <% } else { %>
+            <li>
+              <button class="btn" type="button">
+                <a href="/espace-perso">Espace perso</a>
+              </button>
+            </li>
+            <% if(user.isAdmin){ %>
+              <li>
+                <button class="btn" type="button">
+                  <a href="/espace-admin">Espace admin</a>
+                </button>
+              </li>
+              <% } %>
+              <li>
+                <button class="btn" type="button">
+                  <a href="/deconnexion">Déconnexion</a>
+                </button>
+              </li>
+              <% } %>
+              <li id="div-menu-social">
+                <a href="https://www.facebook.com/profile.php?id=100009631203408" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://www.instagram.com/youenn_yapronos" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://www.snapchat.com/add/ya-35" target="_blank"><i class="fab fa-snapchat"></i></a>
+              </li>
+            </ul>
+            <label class="mobile-left mobmenu-toggle" for="mobile-menu-toggle">+</label>
+          </nav>
+        </div>
 
 
 
-      <div>
+
+
+
+        <!-- ********************************
+        ********     FLASHMESSAGES     ********
+        ******************************** -->
         <div class="container">
           <% if ( typeof flashMessages !== 'undefined' ) {
             for(let [type, messages] of Object.entries(flashMessages)) {
@@ -114,51 +143,65 @@ crossorigin="anonymous"></script>
             } %>
           </div>
 
+
+
+          <!-- ********************************
+          ********     PAGE CONTENT     ********
+          ******************************** -->
+
           <%-pageContent%>
-        </div>
-        <!--dim background effect when open menu-->
-        <!-- <div class="dim-overlay" style="display: none"> </div> -->
 
-      </body>
 
-      <footer>
-        <img style="width:100%" src="img/gold_min.png" id="goldBar">
-        <div class="container-fluid">
-          <div class="row vertical-align">
-            <div class="logo-container col-sm-4">
-              <img src="img/logo_gris.png" class="rounded mx-auto d-block img-fluid" alt="logo">
-            </div>
-            <div class="social col-sm-4">
-              <div class="row">
-                <span class="text-center"> Retrouvez moi sur vos réseaux sociaux préférés :</span>
-              </div>
-              <a href="https://www.facebook.com/profile.php?id=100009631203408" target="_blank"><i class="fa fa-facebook-f fa-lg"></i></a>
-              <a href="https://www.instagram.com/youenn_yapronos" target="_blank"><i class="fa fa-instagram fa-lg"></i></a>
-              <a href="https://www.snapchat.com/add/ya-35" target="_blank"><i class="fa fa-snapchat fa-lg"></i></a>
-            </div>
-            <div class="risky-play text-center col-sm-4">
-              <div class="row">
-                <div class="col-md-6 offset-md-3">
-                  <img src="img/snapcode.jpeg" alt="snapcode" class="img-fluid" style="margin: 20px 0px 0px 0px">
-                  <p class="text-center">ya-35</p>
+
+
+          <!-- ********************************
+          ********     FOOTER     ********
+          ******************************** -->
+          <div class="container-fluid">
+            <footer>
+              <img src="img/gold_min.png" id="gold-bar">
+              <div class="container-fluid">
+                <div class="row vertical-align">
+                  <div class="logo-container col-sm-4">
+                    <img src="img/logo_gris.png" class="rounded mx-auto d-block img-fluid" alt="logo">
+                  </div>
+                  <div class="social col-sm-4">
+                    <div class="row text-center">
+                      <div class="text-center" style="width: 100%">
+                        <span class="text-center"> Retrouvez moi sur vos réseaux sociaux préférés :</span>
+                      </div>
+                      <div class="text-center" style="width: 100%">
+                        <a href="https://www.facebook.com/profile.php?id=100009631203408" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.instagram.com/youenn_yapronos" target="_blank"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.snapchat.com/add/ya-35" target="_blank"><i class="fab fa-snapchat"></i></a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="risky-play text-center col-sm-4">
+                    <div class="row">
+                      <div class="col-md-6 offset-md-3">
+                        <img src="img/snapcode.jpeg" alt="snapcode" class="img-fluid" style="margin: 20px 0px 0px 0px">
+                        <p class="text-center">ya-35</p>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col">
+                        <p class="text-center">
+                          © Youenn YA Entreprise - 2019 all rights reserved<br>
+                          <a href="/cgu">CGU</a>/<a href="/cgv">CGV</a> | <a href="/mentions-legales">Mentions légales</a><br>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row" style="background-color:white">
+                  <div class="risky-play text-center col-sm-12" style="color:black">
+                    Jouer comporte des risques : endettement, isolement, dépendance.<br>Pour être aidé, appelez le 09-74-75-13-13 (appel non surtaxé)
+                  </div>
                 </div>
               </div>
-              <div class="row">
-                <div class="col">
-                  <p class="text-center">
-                    © Youenn YA Entreprise - 2019 all rights reserved<br>
-                    <a href="/cgu">CGU</a>/<a href="/cgv">CGV</a> | <a href="/mentions-legales">Mentions légales</a><br>
-                  </p>
-                </div>
-              </div>
-            </div>
+            </footer>
           </div>
-          <div class="row" style="background-color:white">
-            <div class="risky-play text-center col-sm-12" style="color:black">
-              Jouer comporte des risques : endettement, isolement, dépendance.<br>Pour être aidé, appelez le 09-74-75-13-13 (appel non surtaxé)
-            </div>
-          </div>
-        </div>
-      </footer>
-      <!-- <script src="js/main.js"> </script> -->
-      </html>
+
+        </body>
+        </html>

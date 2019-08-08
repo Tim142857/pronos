@@ -94,5 +94,17 @@ module.exports = {
       user = await user.save()
       return user;
     })
+  },
+  getPacksSuscribed: function(user){
+    return module.exports.getSubscriptions(user)
+    .then(async (subscriptions) => {
+      let packs = [];
+      for(var i = 0; i < subscriptions.data.length; i++){
+        let stripeId = subscriptions.data[i].plan.id
+        let pack = await Pack.findOne({ where: { stripeId } })
+        packs.push(pack)
+      }
+      return Promise.resolve(packs)
+    })
   }
 }

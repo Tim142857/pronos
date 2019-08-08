@@ -1,15 +1,28 @@
 <%- contentFor('header') %>
+<style>
+  .text-prono{
+    padding: 15% 5%;
+  }
+
+  .rating-prono .fa-star{color: yellow;}
+</style>
 
 <%- contentFor('pageContent') %>
-<div class="container">
-  <div class="row">
-    <div class="col-12 col-md-6">
+<div class="container" id='page-content'>
+  <div class="row h-100">
+    <div class="col-12 offset-md-1 col-md-4">
       <img class="img-fluid mx-auto" src="/pronos-uploads/<%= post.pack.name + '/' + post.img %>">
     </div>
-    <div class="col-12 col-md-6">
-      <div class="text-center">
-        <%- post.text %>
+    <div class="col-12 offset-md-1 col-md-6 container-text-prono my-auto">
+      <div class="text-center rating-prono gold-bordered">
+        Indice de confiance:
+        <% for(var i = 0; i < 5; i++){ %>
+          <span class="<% if(i<post.rating){ %>fas<% }else{ %>far<% } %> fa-star"></span>
+          <% } %>
+        </div>
+        <div class="text-center text-prono gold-bordered">
+          <%- post.text %>
+        </div>
       </div>
     </div>
   </div>
-</div>

@@ -1,38 +1,36 @@
 <%- contentFor('header') %>
 
+<style>
+  #container-packs{
+    margin-top: 60px;
+    margin-bottom: 60px;
+  }
+
+  .img-pack:hover {
+    width: 120%;
+  }
+
+  .container-img-pack{
+    padding: 5%;
+  }
+
+  .container-img-pack:hover{
+    padding: 3%;
+  }
+
+
+</style>
+
+
 <%- contentFor('pageContent') %>
+<img src='img/banniere.jpg' alt='banniere' id="banniere" style="width:100%">
+<img src="img/gold.png" id='gold-bar'>
 <div class="container-fluid">
-  <div id="homepage">
-    <div id="banniere-container">
-      <img src='img/banniere.jpg' alt='banniere' id="banniere" style="width:100%">
-      <div style="position:relative" style="width: 100%;">
-        <img src="img/gold.png" style="width: 100%; height: 9px">
-        <span style="position: absolute; top:60%; color: white; font-size: 38px; width:100%; font-family: boldbrush" class="text-center">Devenez membre !</span>
+  <div class="row" id="container-packs">
+    <% for(var i = 0; i < packs.length; i++){ %>
+      <div class="col-12 col-md-4 container-img-pack">
+        <a href='/pack/<%= packs[i].name %>'><img class="img-fluid img-pack" src="/img/packs/<%= packs[i].name %>.png"></a>
       </div>
+      <% } %>
     </div>
-    <div id="pack-container">
-      <div class="row vertical-align" style="min-height: 800px">
-        <div class="col-12 col-lg-6">
-          <a href="#" style="margin-left: auto; margin-right: auto; display: block"">
-            <img src='img/pack.png' class="img-fluid" id='img-pack-1' alt='pack' style="max-height: 600px; width: auto; margin-left: auto; margin-right: auto; display: block">
-          </a>
-        </div>
-        <div class="col-12 col-lg-6 text-near-pack">
-          <p>
-            <h2 class="h2">INSCRIS TOI ET REJOINS DES MILLIERS DE PARIEURS GAGNANTS !</h2><br><br>
-            <span>Déverrouille le pack pour découvrir notre méthode de jeu et accéder à nos conseils tennis !</span><br><br>
-
-            Plus de 60 tournois pronostiqués tout au long de l’année !<br><br>
-
-            - 4 grands Chelem<br>
-            - 9 Masters 1000<br>
-            - 42 tournois ATP 250 et 500<br>
-            - la finale du Masters<br>
-            - La coupe Davis<br>
-            - Le circuit WTA<br>
-            <p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+  </div>

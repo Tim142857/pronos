@@ -137,6 +137,8 @@ nav ul li {
   }
 
   li:first-child {
-    margin-top: 70%;
+    margin-top: 10%;
+    margin-bottom: 50%;
+    width: 320px !important;
   }
 }

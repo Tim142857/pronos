@@ -15,17 +15,12 @@ body{
 }
 
 a:hover{
-  text-decoration: underline;
-  color: grey;
+  cursor: pointer !important;
 }
-
 .fa {
   /* color: white !important; */
 }
 
-.page-content{
-  margin-top: 72px;
-}
 
 footer{
   background-color: black;
@@ -174,7 +169,7 @@ h2.active {
 
 /* FORM TYPOGRAPHY*/
 
-input[type=button], input[type=submit], input[type=reset]  {
+input[type=button], input[type=submit], input[type=reset], .btn-classic  {
   background-color: #F2CB0C;
   border: none;
   color: white;
@@ -196,11 +191,11 @@ input[type=button], input[type=submit], input[type=reset]  {
   transition: all 0.3s ease-in-out;
 }
 
-input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover  {
+input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover, .btn-classic:hover  {
   background-color: #8D7127;
 }
 
-input[type=button]:active, input[type=submit]:active, input[type=reset]:active  {
+input[type=button]:active, input[type=submit]:active, input[type=reset]:active, .btn-classic:active  {
   -moz-transform: scale(0.95);
   -webkit-transform: scale(0.95);
   -o-transform: scale(0.95);
@@ -393,11 +388,26 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 }
 
 
+#page-content{
+  margin-top: 4%;
+  margin-bottom: 4%;
+}
+
+.gold-bordered {
+  border: 1px solid #C6951B;
+}
+
+#gold-bar{
+  height: 2vw;
+  width: 100%;
+  margin-top: -20px;
+}
 
 
 /* For Tabs */
 
 @media only screen and (min-width: 480px) and (max-width: 960px) {
+
 }
 
 /* Common For Tabs and Laptops */
@@ -419,6 +429,11 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 
   .text-near-pack {
     padding: 20px;
+  }
+
+  #page-content{
+    margin-top: 16%;
+    margin-bottom: 8%;
   }
 
 }
@@ -468,13 +483,22 @@ nav .btn:hover{
   color: white;
 }
 
-.dropdown-menu{
+nav .dropdown-menu{
   background-color: black;
   line-height: 60px;
 }
 
-.dropdown-item:hover{
+nav .dropdown-item:hover{
   background-color: black;
   color: white;
   text-decoration: underline;
+}
+
+#div-menu-social{
+  float: right;
+}
+
+#div-menu-social a{
+  max-height: 30px;
+  max-width: 30px;
 }

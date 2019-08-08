@@ -19,7 +19,9 @@
         <label style="color: white; font-size: 12px">Attention à renseigner un email valide, il sera utilisé en cas d'oubli de mot de passe</label>
         <input type="text" id="mail" class="fadeIn third" name="email" placeholder="email">
         <input type="text" id="password-confirm" class="fadeIn fourth" name="passwordconfirm" placeholder="mot de passe">
-        <input type="text" id="password" class="fadeIn fourth" name="password" placeholder="confirmer mot de passe">
+        <input type="text" id="password" class="fadeIn fourth" name="password" placeholder="confirmer mot de passe"><br/>
+        <input type="checkbox" id="cgu" name="cgu">
+        <label for="cgu" style="color: white; font-size: 12px">J'accepte les <a href="/cgu">CGU et les CGV</a></label><br/>
         <input type="hidden" value="<% if(!isNullOrUndefined(redirectTo)){ %><%= redirectTo %><% } %>" name="redirectTo">
         <input type="submit" class="fadeIn fifth" value="S'inscrire">
       </form>

@@ -1,69 +1,154 @@
 <%- contentFor('header') %>
-<link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet">
-<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-<script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-<link href="css/bootstrap-editable.css" rel="stylesheet">
-<script src="js/bootstrap-editable.js"></script>
 <style>
-  table td{
-    min-width: 150px;
+  #container-table-infos{
+    padding: 5% 5%;
+    margin-top: 20%;
+    margin-bottom: 25%;
   }
 
-  table tr{
-    height: 55px;
+  .table td,
+  .table th {
+    border: 0;
   }
 
-  .editableform .control-group {
-    line-height: 36px;
-  }
-
-  table a{
+  .table {
     color: white;
+  }
+
+
+  .table > tbody > tr > td {
+    vertical-align: middle;
+  }
+
+  .table i {
+    cursor: pointer;
+    margin-left: 7px;
+    margin-right: 7px;
+  }
+
+  .table i:hover {
+    color: grey;
   }
 </style>
 
 <%- contentFor('pageContent') %>
-<div class="container" style="padding: 200px 10px 200px 10px; color: white !important">
-  <div class="col-md-8 offset-md-2">
-    <div>
-      <h2>INFORMATIONS PERSONNELLES</h2>
-      <br><br><br><br><br><br>
-      <h5>Cliquez sur vos informations pour les modifier</h5><br><br>
+<div class="container" id='page-content'>
+  <div class='row'>
+    <h2>VOS INFORMATIONS PERSONNELLES</h2>
+    <div class="col-12 col-md-8">
+      <div class="gold-bordered" id="container-table-infos">
+        <div class="row h-100">
+          <table class="table" id="table-infos">
+            <tr>
+              <td>Pseudo :</td>
+              <td class='editable'><%= user.pseudo %></td>
+              <td class="input-editable d-none"><input type="text" class="form-control input-xs" name='pseudo' value='<%= user.pseudo %>'</td>
+              <td class="edit-icons">
+                <i class="fas fa-pencil-alt icon-edit"></i>
+                <i class="fa fa-check d-none icon-valid" aria-hidden="true"></i>
+                <i class="fa fa-ban d-none icon-cancel" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Email :</td>
+              <td class='editable'><%= user.email %></td>
+              <td class="input-editable d-none"><input type="email" class="form-control input-xs" name='email' value='<%= user.email %>'</td>
+              <td class="edit-icons">
+                <i class="fas fa-pencil-alt icon-edit"></i>
+                <i class="fa fa-check d-none icon-valid" aria-hidden="true"></i>
+                <i class="fa fa-ban d-none icon-cancel" aria-hidden="true"></i>
+              </td>
+            </tr>
+            <tr>
+              <td>Mot de passe :</td>
+              <td class='editable'><%= user.password %></td>
+              <td class="input-editable d-none"><input type="text" class="form-control input-xs" name='password' value='<%= user.password %>'</td>
+              <td class="edit-icons">
+                <i class="fas fa-pencil-alt icon-edit"></i>
+                <i class="fa fa-check d-none icon-valid" aria-hidden="true"></i>
+                <i class="fa fa-ban d-none icon-cancel" aria-hidden="true"></i>
+              </td>
+            </tr>
+          </table>
+        </div>
+      </div>
     </div>
-    <div>
-      <table>
-        <tr>
-          <td>
-            Pseudo :
-          </td>
-          <td>
-            <a href="#" id="pseudo" data-type="text" data-pk="1" data-url="/edit-user" data-title="Enter username"><%= user.pseudo %></a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Email :
-          </td>
-          <td>
-            <a href="#" id="email" data-type="text" data-pk="1" data-url="/edit-user" data-title="Enter username"><%= user.email %></a>
-          </td>
-        </tr>
-        <tr>
-          <td>
-            Mot de passe :
-          </td>
-          <td>
-            <a href="#" id="password" data-type="text" data-pk="1" data-url="/edit-user" data-title="Enter username"><%= user.password %></a>
-          </td>
-        </tr>
-      </table>
+
+    <div class=" col-12 col-md-4 text-center">
+      <img class="img-fluid" src='/img/logo.png'><br/>
+
+      <p>Membre depuis le <%= getFormattedDate(createdAt) %> </p><br/>
+      <h3 style="font-style: italic">Packs souscrits: </h3>
+      <% for(var i = 0; i < packs.length; i++){ %>
+        - <%= packs[i].name %><br/>
+        <% } %>
+      </div>
     </div>
   </div>
-</div>
 
-<script>
-  $.fn.editable.defaults.mode = 'inline';
-  $(document).ready(function() {
-    $('table a').editable();
-  });
-</script>
+  <script>
+
+    $(document).on('click', '.icon-edit', function(){
+      let tdEditable = $(this).closest('tr').find('.editable');
+
+      $(tdEditable).addClass('d-none');
+      $(tdEditable).next('td').removeClass('d-none')
+
+      $(tdEditable).closest('tr').find('.icon-edit').addClass('d-none');
+      $(tdEditable).closest('tr').find('.icon-valid').removeClass('d-none');
+      $(tdEditable).closest('tr').find('.icon-cancel').removeClass('d-none');
+    })
+
+    $(document).on('click', '.icon-valid', function(){
+      let tdEditable = $(this).closest('tr').find('.editable');
+      let tdIcons = $(tdEditable).next('td');
+
+      let iconEdit = $(tdEditable).closest('tr').find('.icon-edit');
+      let iconValid = $(tdEditable).closest('tr').find('.icon-valid');
+      let iconCancel = $(tdEditable).closest('tr').find('.icon-cancel');
+
+      let input = $(this).closest('tr').find('input');
+
+      $(tdEditable).removeClass('d-none');
+      $(tdIcons).addClass('d-none');
+
+      $(iconEdit).removeClass('d-none');
+      $(iconValid).addClass('d-none');
+      $(iconCancel).addClass('d-none');
+
+      let inputValue = $(input).val();
+      $(tdEditable).text(inputValue);
+      let field = $(input).prop('name');
+
+      updateUser(field, inputValue);
+
+    })
+
+    $(document).on('click', '.icon-cancel', function(){
+      let elm = $(this).closest('tr').find('.editable');
+
+      $(elm).removeClass('d-none');
+      $(elm).next('td').addClass('d-none')
+
+      $(elm).closest('tr').find('.icon-edit').removeClass('d-none');
+      $(elm).closest('tr').find('.icon-valid').addClass('d-none');
+      $(elm).closest('tr').find('.icon-cancel').addClass('d-none');
+    })
+
+    var updateUser = function(field, value){
+      $.ajax({
+        url : '/update-user',
+        type : 'POST',
+        dataType : 'json',
+        data: {field, value},
+        success : function(user){
+          console.log('updated user')
+          console.log('newUser', user);
+        },
+        error : function(resultat, statut, erreur){
+          console.log('error ajax');
+        }
+      });
+    }
+
+  </script>

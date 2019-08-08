@@ -42,11 +42,18 @@ app.use(function(req, res, next){
   let flashes = req.flash();
   res.locals.flashMessages = flashes;
   res.locals.title = 'Youenn YA - Pronostics sportifs',
-  res.locals.description = 'Site de pronostics de paris sportifs',
+  res.locals.description = 'Site de pronostics de paris sportifs';
   res.locals.user = req.session.user ? req.session.user : null;
   res.locals.isNullOrUndefined = function(data){
     var result = typeof data === 'undefined' || data === null;
     return result;
+  }
+  res.locals.getFormattedDate = function(seqDate){
+    let day = seqDate.substring(8,10);
+    let month = seqDate.substring(5,7);
+    let year = seqDate.substring(0,4);
+    let formattedDate = day + '/' + month + '/' + year;
+    return formattedDate;
   }
   next();
 })
@@ -79,7 +86,10 @@ app.get('/dev/connexion', function (req, res) {
 //PUBLIC ROUTES
 app.get(['/', '/accueil'], function (req, res) {
   res.locals.title = 'Youenn YA - Accueil';
-  res.render('homepage')
+  Pack.findAll()
+  .then(packs => {
+    res.render('homepage', { packs })
+  })
 })
 
 app.get('/inscription', function (req, res) {
@@ -190,7 +200,7 @@ app.get('/pack/:packName', function (req, res) {
   } else {
     Pack.findOne({ where: { name: req.params.packName } })
     .then(pack => {
-      res.render('testpackdemerde', { pack })
+      res.render('presentationpack', { pack })
     })
   }
 })
@@ -198,9 +208,13 @@ app.get('/pack/:packName', function (req, res) {
 //LOGGED ROUTES
 app.get('/espace-perso', Middlewares.isLogged, function (req, res) {
   res.locals.title = 'Youenn YA - Espace personnel';
-  User.scope('withPassword').findAll({ where: { id: req.session.user.id } })
-  .then(users => {
-    res.render('espace-perso', { user: users[0] })
+  UserManager.getPacksSuscribed(req.session.user)
+  .then(packs => {
+    User.scope('withPassword').findByPk(req.session.user.id)
+    .then(user => {
+      let createdAt = req.session.user.createdAt;
+      res.render('espace-perso', { user, createdAt, packs })
+    })
   })
 })
 
@@ -255,6 +269,11 @@ app.post('/suscribe', Middlewares.isLogged, function (req, res) {
   })
 })
 
+app.get('/historique', function(req, res, next){
+  res.locals.title = 'Youenn YA - Historique';
+  res.render('historique');
+})
+
 //ADMIN routes
 
 app.get('/espace-admin', Middlewares.isAdmin, function (req, res) {
@@ -270,6 +289,7 @@ app.post('/create-prono', Middlewares.isAdmin, async function (req, res) {
   let packId = req.body.packId;
   let text = req.body.text;
   let file = req.files.img;
+  let rating = req.body.rating;
 
   let pack = await Pack.findByPk(packId);
 
@@ -281,7 +301,8 @@ app.post('/create-prono', Middlewares.isAdmin, async function (req, res) {
   Post.build({
     packId: packId,
     img: file.name,
-    text
+    text,
+    rating
   })
   .save()
   .then(post => {
@@ -327,6 +348,20 @@ app.post('/change-vip-status', function(req, res, next){
   .then(newUser => {
     res.send(newUser)
   })
+})
+
+app.post('/update-user', Middlewares.isLogged, function(req, res, next){
+  var field = req.body.field;
+  var value = req.body.value;
+  let user = req.session.user;
+  if(['password', 'pseudo', 'email'].indexOf(field) != -1){
+    return User.findByPk(req.session.user.id)
+    .then(async(user) => {
+      user[field] = value;
+      await user.save();
+      res.send(user)
+    })
+  }
 })
 
 //VIP ROUTES

@@ -61,7 +61,8 @@
     "data": {
       "text": "super text du prono pack-fun",
       "packId": 3,
-      "img": "pack-fun01082019.jpg"
+      "img": "pack-fun01082019.jpg",
+      "rating": 3
     }
   }
 ]
