@@ -14,14 +14,14 @@
       <img class="img-fluid mx-auto" src="/pronos-uploads/<%= post.pack.name + '/' + post.img %>">
     </div>
     <div class="col-12 offset-md-1 col-md-6 container-text-prono my-auto">
-      <div class="text-center rating-prono gold-bordered">
+      <div class="text-center text-prono">
+        <%- post.text %>
+      </div>
+      <div class="text-center rating-prono">
         Indice de confiance:
         <% for(var i = 0; i < 5; i++){ %>
           <span class="<% if(i<post.rating){ %>fas<% }else{ %>far<% } %> fa-star"></span>
           <% } %>
-        </div>
-        <div class="text-center text-prono gold-bordered">
-          <%- post.text %>
         </div>
       </div>
     </div>

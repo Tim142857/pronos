@@ -9,6 +9,10 @@ body{
   position: relative;
 }
 
+h2 {
+  font-family: "boldbrush"
+}
+
 @font-face {
   font-family: boldbrush;
   src: url(../fonts/blowbrush.otf);
@@ -16,6 +20,7 @@ body{
 
 a:hover{
   cursor: pointer !important;
+  color: #E8E8E8;
 }
 .fa {
   /* color: white !important; */
@@ -23,7 +28,7 @@ a:hover{
 
 
 footer{
-  background-color: black;
+  background: url('../img/background.jpg');
   color: white;
 }
 
@@ -55,6 +60,10 @@ footer a {
 footer .risky-play{
   margin-top: 5px;
   margin-bottom: 5px;
+}
+
+footer #snap_code{
+  border-radius: 17%
 }
 
 .gold-transition {
@@ -162,7 +171,7 @@ h2.inactive {
 
 h2.active {
   color: #0d0d0d;
-  border-bottom: 2px solid #5fbae9;
+  /* border-bottom: 2px solid #5fbae9; */
 }
 
 
@@ -192,7 +201,7 @@ input[type=button], input[type=submit], input[type=reset], .btn-classic  {
 }
 
 input[type=button]:hover, input[type=submit]:hover, input[type=reset]:hover, .btn-classic:hover  {
-  background-color: #8D7127;
+  background-color: #505050;
 }
 
 input[type=button]:active, input[type=submit]:active, input[type=reset]:active, .btn-classic:active  {
@@ -226,7 +235,7 @@ input[type=text], input[type=password] {
 
 input[type=text]:focus, input[type=password]:focus {
   background-color: #fff;
-  border-bottom: 2px solid #5fbae9;
+  /* border-bottom: 2px solid #5fbae9; */
 }
 
 input[type=text]:placeholder, input[type=password]:placeholder {
@@ -398,7 +407,7 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 }
 
 #gold-bar{
-  height: 2vw;
+  height: 9px;
   width: 100%;
   margin-top: -20px;
 }

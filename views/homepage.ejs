@@ -2,10 +2,17 @@
 
 <style>
   #container-packs{
-    margin-top: 60px;
-    margin-bottom: 60px;
+    min-height: 1000px;
   }
 
+  .container-form-contact{
+    padding-top: 80px;
+  }
+
+  .container-historique-img{
+    width: 85%;
+    margin: auto;
+  }
   .img-pack:hover {
     width: 120%;
   }
@@ -14,23 +21,122 @@
     padding: 5%;
   }
 
-  .container-img-pack:hover{
-    padding: 3%;
+  .container-img-pack p{
+    padding: 5% 15%;
   }
 
+  .container2{
+    width:92%;
+    margin: auto;
+  }
+  .container2:hover{
+    width:100%;
+  }
+
+  .title-part{
+    width: 100%;
+    text-align:center;
+    margin-top: 30px;
+  }
+
+  #part-historique{
+    padding-top: 30px;
+    background-color: white;
+    padding-bottom: 100px;
+    color: black;
+    min-height: 900px;
+  }
+
+  #part-historique h2{
+    margin-bottom: 80px;
+  }
+
+  #part-historique p{
+    padding-top: 6%;
+    width: 100%;
+    text-align: center;
+  }
+
+  #part-contact{
+    padding-top: 30px;
+    background-color: black;
+    padding-bottom: 80px;
+    color: white;
+  }
+
+  #button-submit-contact{
+    width: 90%;
+    margin-left: 5px;
+    margin-top: 25px;
+  }
 
 </style>
 
 
 <%- contentFor('pageContent') %>
 <img src='img/banniere.jpg' alt='banniere' id="banniere" style="width:100%">
-<img src="img/gold.png" id='gold-bar'>
+
+
 <div class="container-fluid">
+  <h2 class="title-part">Devenez membre !</h2>
   <div class="row" id="container-packs">
     <% for(var i = 0; i < packs.length; i++){ %>
       <div class="col-12 col-md-4 container-img-pack">
-        <a href='/pack/<%= packs[i].name %>'><img class="img-fluid img-pack" src="/img/packs/<%= packs[i].name %>.png"></a>
+        <div class="container2">
+          <a href='/pack/<%= packs[i].name %>'><img class="img-fluid img-pack" src="/img/packs/<%= packs[i].name %>.png"></a>
+        </div>
+        <p><%- packs[i].description %></p>
       </div>
       <% } %>
+    </div>
+  </div>
+
+
+  <div class="container-fluid" id="part-historique">
+    <h2 class="title-part">Des chiffres et des lets </h2>
+    <div class='row h-100'>
+      <div class="col-12 col-md-6 my-auto">
+        <div class="container-historique-img">
+          <img class="img-fluid" src="img/courbe.png">
+        </div>
+      </div>
+      <div class="col-12 col-md-6 my-auto">
+        <div class="container-historique-img">
+          <img class="img-fluid" src="img/stats.png">
+        </div>
+      </div>
+    </div>
+    <div class='row'>
+      <p style="text-decoration: underline"><a href="">Cliques pour voir toutes les statistiques en détails</a></p>
+    </div>
+  </div>
+
+  <div class="container-fluid" id="part-contact">
+    <h2 class="title-part">Une question? </h2>
+    <div class="row container-form-contact">
+      <div class="col-12 col-md-3 offset-md-3">
+        <form action="/create-message" method="POST">
+          <div class="form-group">
+            <label for="inputName">Nom</label>
+            <input type="text" class="form-control" id="inputName" aria-describedby="emailHelp" name="name">
+          </div>
+          <div class="form-group">
+            <label for="inputFirstName">Prénom</label>
+            <input type="text" class="form-control" id="inputFirstName" aria-describedby="emailHelp" name="firstName">
+          </div>
+          <div class="form-group">
+            <label for="inputEmail">Email</label>
+            <input type="text" class="form-control" id="inputEmail" aria-describedby="emailHelp" name="email">
+          </div>
+          <div class="form-group">
+            <label for="inputMessage">Message</label>
+            <textarea type="text" class="form-control" id="inputMessage" aria-describedby="emailHelp" name="message" style="margin-left:4px; width: 90%"></textarea>
+          </div>
+          <input type="submit" class="" value="Envoyer" id="button-submit-contact">
+        </form>
+      </div>
+      <div class="col-12 col-md-4">
+        <img class='img-fluid' src="img/aigle_snap.png">
+      </div>
     </div>
   </div>

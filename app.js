@@ -13,7 +13,7 @@ const fileUpload = require('express-fileupload');
 const Middlewares = require('./middlewares')
 const Errors = require('./constants').errors;
 const { UserManager, StripeManager } = require('./managers')
-const { Log, Pack, Post, User } = require('./models')
+const { Log, Pack, Post, User, Message } = require('./models')
 
 const PATH_TO_PUBLIC_LAYOUT = 'layouts/layoutPublic';
 
@@ -258,10 +258,11 @@ app.get('/pronos/:packName',function (req, res) {
 
 app.post('/suscribe', Middlewares.isLogged, function (req, res) {
   var packStripeId = req.body.packStripeId;
+  var packName = req.body.packName;
   UserManager.suscribe(req.session.user, packStripeId)
   .then(subscription => {
     req.flash('success', "L'abonnement s'est déroulé avec succès")
-    res.redirect('/');
+    res.redirect('/pronos/' + packName);
   })
   .catch(err => {
     req.flash('warning', "Vous êtes déjà abonné à ce pack")
@@ -312,6 +313,26 @@ app.post('/create-prono', Middlewares.isAdmin, async function (req, res) {
   .catch(e => {
     req.flash('warning', "le prono n'a pu etre créé");
     res.redirect('espace-admin')
+  })
+})
+
+app.post('/create-message', function(req, res, next){
+  let name = req.body.name;
+  let firstName = req.body.firstName;
+  let email = req.body.email;
+  let message = req.body.message;
+  let userId = req.session && req.session.user ? req.session.user.id : null;
+
+  return Message.create({
+    name,
+    firstName,
+    email,
+    message,
+    userId
+  })
+  .then(() => {
+    req.flash('success', 'Votre message a bien été envoyé')
+    res.redirect('/')
   })
 })
 

@@ -32,7 +32,7 @@
 
 <%- contentFor('pageContent') %>
 <div class="container" id='page-content'>
-  <div class="col-12 col-md-6 offset-md-3">
+  <div class="col-12  col-sm-4 offset-sm-4 col-md-6 offset-md-3">
     <a><img class="img-fluid img-pack" src="/img/packs/<%= pack.name %>.png"></a>
   </div>
   <br/><br/>
@@ -51,19 +51,21 @@
           <div id="card-errors" role="alert"></div>
         </div>
         <br/><br/>
-        <input type="submit" class="fadeIn fourth" value="AJOUTER CETTE CARTE">
+        <input type="submit" class="fadeIn fourth" value="SOUSCRIRE A CE PACK">
       </form>
 
       <div class="invisible" id='container-button-suscribe'>
-        <form action="/suscribe" method="POST" class="text-center">
+        <form action="/suscribe" method="POST" class="text-center" id="form-suscribe">
           <input type="hidden" name="packStripeId" value="<%= pack.stripeId %>">
+          <input type="hidden" name="packName" value="<%= pack.name %>">
           <input type="submit" id="submit-suscribe" value="SOUSCRIRE A CE PACK">
         </form>
       </div>
 
       <% } else { %>
         <div class="" id='container-button-suscribe'>
-          <form action="/suscribe" method="POST" class="text-center">
+          <form action="/suscribe" method="POST" class="text-center" id="form-suscribe">
+            <input type="hidden" name="packName" value="<%= pack.name %>">
             <input type="hidden" name="packStripeId" value="<%= pack.stripeId %>">
             <input type="submit" id="submit-suscribe" value="SOUSCRIRE A CE PACK">
           </form>
@@ -143,8 +145,7 @@
             dataType : 'json',
             data: token,
             success : function(data){
-              $('#container-button-suscribe').removeClass('invisible');
-              $('#payment-form').addClass('invisible');
+              $('#form-suscribe').submit();
             },
             error : function(resultat, statut, erreur){
               console.log('error ajax')

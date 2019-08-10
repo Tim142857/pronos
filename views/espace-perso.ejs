@@ -4,6 +4,7 @@
     padding: 5% 5%;
     margin-top: 20%;
     margin-bottom: 25%;
+    background: url('img/background.jpg')
   }
 
   .table td,
@@ -36,7 +37,7 @@
   <div class='row'>
     <h2>VOS INFORMATIONS PERSONNELLES</h2>
     <div class="col-12 col-md-8">
-      <div class="gold-bordered" id="container-table-infos">
+      <div id="container-table-infos">
         <div class="row h-100">
           <table class="table" id="table-infos">
             <tr>
@@ -78,77 +79,81 @@
       <img class="img-fluid" src='/img/logo.png'><br/>
 
       <p>Membre depuis le <%= getFormattedDate(createdAt) %> </p><br/>
-      <h3 style="font-style: italic">Packs souscrits: </h3>
-      <% for(var i = 0; i < packs.length; i++){ %>
-        - <%= packs[i].name %><br/>
-        <% } %>
+      <% if(packs.length > 0){ %>
+        <h3 style="font-style: italic">Packs souscrits : </h3>
+        <% for(var i = 0; i < packs.length; i++){ %>
+          - <%= packs[i].name %><br/>
+          <% } %>
+          <% }else{ %>
+            Aucun pack souscrit
+            <% } %>
+          </div>
+        </div>
       </div>
-    </div>
-  </div>
 
-  <script>
+      <script>
 
-    $(document).on('click', '.icon-edit', function(){
-      let tdEditable = $(this).closest('tr').find('.editable');
+        $(document).on('click', '.icon-edit', function(){
+          let tdEditable = $(this).closest('tr').find('.editable');
 
-      $(tdEditable).addClass('d-none');
-      $(tdEditable).next('td').removeClass('d-none')
+          $(tdEditable).addClass('d-none');
+          $(tdEditable).next('td').removeClass('d-none')
 
-      $(tdEditable).closest('tr').find('.icon-edit').addClass('d-none');
-      $(tdEditable).closest('tr').find('.icon-valid').removeClass('d-none');
-      $(tdEditable).closest('tr').find('.icon-cancel').removeClass('d-none');
-    })
+          $(tdEditable).closest('tr').find('.icon-edit').addClass('d-none');
+          $(tdEditable).closest('tr').find('.icon-valid').removeClass('d-none');
+          $(tdEditable).closest('tr').find('.icon-cancel').removeClass('d-none');
+        })
 
-    $(document).on('click', '.icon-valid', function(){
-      let tdEditable = $(this).closest('tr').find('.editable');
-      let tdIcons = $(tdEditable).next('td');
+        $(document).on('click', '.icon-valid', function(){
+          let tdEditable = $(this).closest('tr').find('.editable');
+          let tdIcons = $(tdEditable).next('td');
 
-      let iconEdit = $(tdEditable).closest('tr').find('.icon-edit');
-      let iconValid = $(tdEditable).closest('tr').find('.icon-valid');
-      let iconCancel = $(tdEditable).closest('tr').find('.icon-cancel');
+          let iconEdit = $(tdEditable).closest('tr').find('.icon-edit');
+          let iconValid = $(tdEditable).closest('tr').find('.icon-valid');
+          let iconCancel = $(tdEditable).closest('tr').find('.icon-cancel');
 
-      let input = $(this).closest('tr').find('input');
+          let input = $(this).closest('tr').find('input');
 
-      $(tdEditable).removeClass('d-none');
-      $(tdIcons).addClass('d-none');
+          $(tdEditable).removeClass('d-none');
+          $(tdIcons).addClass('d-none');
 
-      $(iconEdit).removeClass('d-none');
-      $(iconValid).addClass('d-none');
-      $(iconCancel).addClass('d-none');
+          $(iconEdit).removeClass('d-none');
+          $(iconValid).addClass('d-none');
+          $(iconCancel).addClass('d-none');
 
-      let inputValue = $(input).val();
-      $(tdEditable).text(inputValue);
-      let field = $(input).prop('name');
+          let inputValue = $(input).val();
+          $(tdEditable).text(inputValue);
+          let field = $(input).prop('name');
 
-      updateUser(field, inputValue);
+          updateUser(field, inputValue);
 
-    })
+        })
 
-    $(document).on('click', '.icon-cancel', function(){
-      let elm = $(this).closest('tr').find('.editable');
+        $(document).on('click', '.icon-cancel', function(){
+          let elm = $(this).closest('tr').find('.editable');
 
-      $(elm).removeClass('d-none');
-      $(elm).next('td').addClass('d-none')
+          $(elm).removeClass('d-none');
+          $(elm).next('td').addClass('d-none')
 
-      $(elm).closest('tr').find('.icon-edit').removeClass('d-none');
-      $(elm).closest('tr').find('.icon-valid').addClass('d-none');
-      $(elm).closest('tr').find('.icon-cancel').addClass('d-none');
-    })
+          $(elm).closest('tr').find('.icon-edit').removeClass('d-none');
+          $(elm).closest('tr').find('.icon-valid').addClass('d-none');
+          $(elm).closest('tr').find('.icon-cancel').addClass('d-none');
+        })
 
-    var updateUser = function(field, value){
-      $.ajax({
-        url : '/update-user',
-        type : 'POST',
-        dataType : 'json',
-        data: {field, value},
-        success : function(user){
-          console.log('updated user')
-          console.log('newUser', user);
-        },
-        error : function(resultat, statut, erreur){
-          console.log('error ajax');
+        var updateUser = function(field, value){
+          $.ajax({
+            url : '/update-user',
+            type : 'POST',
+            dataType : 'json',
+            data: {field, value},
+            success : function(user){
+              console.log('updated user')
+              console.log('newUser', user);
+            },
+            error : function(resultat, statut, erreur){
+              console.log('error ajax');
+            }
+          });
         }
-      });
-    }
 
-  </script>
+      </script>

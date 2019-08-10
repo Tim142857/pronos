@@ -23,6 +23,10 @@ module.exports = sequelize.define('pack', {
   productStripeId: {
     type: Sequelize.STRING,
     allowNull: false
+  },
+  description: {
+    type: Sequelize.STRING,
+    allowNull: false
   }
 }, {
   timestamps: true

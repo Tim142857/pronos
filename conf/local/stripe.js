@@ -14,7 +14,7 @@ module.exports = {
       productStripeId: "prod_FSSg9K6e9Oqhzo"
     },
     PACK_PRIVE: {
-      name: "pack-prive",
+      name: "pack-privé",
       stripeId: "plan_FEyXBo7ryamkws",
       productStripeId: "prod_FExD39vYIhPQEi"
     }

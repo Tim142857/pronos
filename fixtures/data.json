@@ -30,10 +30,11 @@
     "model": "Pack",
     "data": {
       "id": 1,
-      "name": "pack-prive",
+      "name": "pack-privé",
       "price": 19.99,
       "stripeId": "plan_FEyXBo7ryamkws",
-      "productStripeId": "prod_FExD39vYIhPQEi"
+      "productStripeId": "prod_FExD39vYIhPQEi",
+      "description": "Rejoins des milliers de parieurs gagnants ! Plus de 60 tournois pronostiqués tout au long de l’année ! <br/>*Profitez gratuitement du pack champion pendant une semaine"
     }
   },
   {
@@ -43,7 +44,8 @@
       "name": "pack-champion",
       "price": 4.99,
       "stripeId": "plan_FSTBju8Oe1WS3K",
-      "productStripeId": "prod_FSSg9K6e9Oqhzo"
+      "productStripeId": "prod_FSSg9K6e9Oqhzo",
+      "description": "Qui gagnera Roland ? Qui réalisera le grand chelem ? Qui n’en gagnera pas ?... la réponse ici !"
     }
   },
   {
@@ -53,7 +55,8 @@
       "name": "pack-fun",
       "price": 12.99,
       "stripeId": "plan_FSTDELZIDljLJa",
-      "productStripeId": "prod_FSTDxAeQcfT0Ri"
+      "productStripeId": "prod_FSTDxAeQcfT0Ri",
+      "description": "Rejoins des milliers de parieurs gagnants ! Plus de 60 tournois pronostiqués tout au long de l’année ! <br/>*Profitez gratuitement du pack champion pendant une semaine"
     }
   },
   {

@@ -17,6 +17,10 @@ nav ul li {
   list-style: square;
 }
 
+nav ul li:hover {
+  font-style: underline;
+}
+
 /* OPTIONAL THEMING */
 
 
@@ -50,6 +54,9 @@ nav ul li {
   line-height: 100px;
 }
 
+.mobile-toggleable-menu li a:hover {
+}
+
 .mobile-toggleable-menu li a {
   height: 100%;
   width: 100%;
@@ -60,8 +67,8 @@ nav ul li {
 }
 
 .mobile-toggleable-menu li a:hover {
-  /* background-color: #222; */
-  /* color: orange; */
+  color: #E8E8E8;
+  text-decoration: underline;
 }
 
 .mobmenu-toggle:hover {
