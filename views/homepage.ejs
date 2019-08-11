@@ -2,7 +2,7 @@
 
 <style>
   #container-packs{
-    min-height: 1000px;
+    min-height: 45vw;
   }
 
   .container-form-contact{
@@ -18,7 +18,7 @@
   }
 
   .container-img-pack{
-    padding: 5%;
+    padding: 2%;
   }
 
   .container-img-pack p{
@@ -26,17 +26,22 @@
   }
 
   .container2{
-    width:92%;
+    width:95%;
     margin: auto;
   }
-  .container2:hover{
-    width:100%;
+
+  @media only screen and (min-width: 480px) {
+    .container2:hover{
+      width:100%;
+    }
   }
 
   .title-part{
     width: 100%;
     text-align:center;
-    margin-top: 30px;
+    margin-top: 100px;
+    margin-bottom: 80px;
+    font-size: 60px;
   }
 
   #part-historique{
@@ -70,73 +75,103 @@
     margin-top: 25px;
   }
 
+  .first-part-mobile{
+    background: url('img/background.jpg');
+    height: 750px;
+    width: 100%;
+    padding-top: 50%;
+  }
+
+  .first-part-mobile img{
+    /* width: 80%; */
+    margin: auto;
+    margin: 12% 0;
+  }
+
 </style>
 
 
 <%- contentFor('pageContent') %>
-<img src='img/banniere.jpg' alt='banniere' id="banniere" style="width:100%">
-
+<img class="d-none d-sm-block" src='img/banniere.jpg' alt='banniere' id="banniere" style="width:100%">
+<div class="d-block d-sm-none first-part-mobile text-center">
+  <div class="row">
+    <br/><br/><br/>
+    <img src='img/youenn.png' alt='youenn' class="img-fluid"></img>
+    <div class="col-6">
+      <br/>
+      <h2>"JEU, SET & CASH"</h2>
+    </div>
+    <div class="col-6">
+      <img src='img/logo.png' alt='youenn' class="img-fluid"></img>
+    </div>
+  </div>
+</div>
 
 <div class="container-fluid">
-  <h2 class="title-part">Devenez membre !</h2>
+  <h2 class="title-part">«Devenez membre !»</h2>
   <div class="row" id="container-packs">
     <% for(var i = 0; i < packs.length; i++){ %>
       <div class="col-12 col-md-4 container-img-pack">
         <div class="container2">
           <a href='/pack/<%= packs[i].name %>'><img class="img-fluid img-pack" src="/img/packs/<%= packs[i].name %>.png"></a>
         </div>
-        <p><%- packs[i].description %></p>
+        <p class="d-block d-sm-none text-center"><%- packs[i].description %></p>
       </div>
       <% } %>
     </div>
-  </div>
+    <div class="row" style="min-height: 250px;">
+      <% for(var i = 0; i < packs.length; i++){ %>
+        <div class="col-12 col-md-4" style="padding: 0px 9%">
+          <p class="d-none d-sm-block text-center"><%- packs[i].description %></p>
+        </div>
+        <% } %>
+      </div>
+    </div>
 
 
-  <div class="container-fluid" id="part-historique">
-    <h2 class="title-part">Des chiffres et des lets </h2>
-    <div class='row h-100'>
-      <div class="col-12 col-md-6 my-auto">
-        <div class="container-historique-img">
-          <img class="img-fluid" src="img/courbe.png">
+    <div class="container-fluid" id="part-historique">
+      <h2 class="title-part">«Des chiffres et des lets»</h2>
+      <p style="margin-bottom: 100px;">
+        Depuis le début de la saison 1, lors de Roland Garros 2019, nous avons un taux de gains record. <br/>
+
+        Pour suivre notre bilan, cliquez sur le lien ci-dessous et rendez vous sur BetBankroll, notre site préféré pour la gestion de capital !
+      </p>
+      <div class='row h-100'>
+        <div class="col-12 col-md-6 offset-md-3 my-auto">
+          <div class="container-historique-img">
+            <img class="img-fluid" src="img/courbe2.png">
+          </div>
         </div>
       </div>
-      <div class="col-12 col-md-6 my-auto">
-        <div class="container-historique-img">
-          <img class="img-fluid" src="img/stats.png">
+      <div class='row'>
+        <p style="text-decoration: underline"><a href="https://www.bet-analytix.com/bankroll/281055" target="_blank">Cliques pour voir toutes les statistiques en détails</a></p>
+      </div>
+    </div>
+
+    <div class="container-fluid" id="part-contact">
+      <h2 class="title-part">«Une question?» </h2>
+      <div class="row container-form-contact">
+        <div class="col-12 col-md-3 offset-md-3">
+          <form action="/create-message" method="POST">
+            <div class="form-group">
+              <label for="inputPseudo">Pseudo</label>
+              <input type="text" class="form-control" id="inputPseudo" aria-describedby="emailHelp" name="pseudo">
+            </div>
+            <div class="form-group">
+              <label for="inputEmail">Email</label>
+              <input type="text" class="form-control" id="inputEmail" aria-describedby="emailHelp" name="email">
+            </div>
+            <div class="form-group">
+              <label for="inputMessage">Message</label>
+              <textarea type="text" class="form-control" id="inputMessage" aria-describedby="emailHelp" name="message" style="margin-left:4px; width: 90%"></textarea>
+            </div>
+            <input type="submit" class="" value="Envoyer" id="button-submit-contact">
+          </form>
+        </div>
+        <div class="col-12 col-md-4">
+          <div style="padding:8%; margin-top: -20px">
+            <img class='img-fluid' src="img/aigle_snap.png">
+          </div>
         </div>
       </div>
     </div>
-    <div class='row'>
-      <p style="text-decoration: underline"><a href="">Cliques pour voir toutes les statistiques en détails</a></p>
-    </div>
-  </div>
-
-  <div class="container-fluid" id="part-contact">
-    <h2 class="title-part">Une question? </h2>
-    <div class="row container-form-contact">
-      <div class="col-12 col-md-3 offset-md-3">
-        <form action="/create-message" method="POST">
-          <div class="form-group">
-            <label for="inputName">Nom</label>
-            <input type="text" class="form-control" id="inputName" aria-describedby="emailHelp" name="name">
-          </div>
-          <div class="form-group">
-            <label for="inputFirstName">Prénom</label>
-            <input type="text" class="form-control" id="inputFirstName" aria-describedby="emailHelp" name="firstName">
-          </div>
-          <div class="form-group">
-            <label for="inputEmail">Email</label>
-            <input type="text" class="form-control" id="inputEmail" aria-describedby="emailHelp" name="email">
-          </div>
-          <div class="form-group">
-            <label for="inputMessage">Message</label>
-            <textarea type="text" class="form-control" id="inputMessage" aria-describedby="emailHelp" name="message" style="margin-left:4px; width: 90%"></textarea>
-          </div>
-          <input type="submit" class="" value="Envoyer" id="button-submit-contact">
-        </form>
-      </div>
-      <div class="col-12 col-md-4">
-        <img class='img-fluid' src="img/aigle_snap.png">
-      </div>
-    </div>
-  </div>

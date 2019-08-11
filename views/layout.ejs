@@ -31,6 +31,7 @@ crossorigin="anonymous"></script>
 
 
 <link rel="stylesheet" href="css/style.css" />
+<link rel="stylesheet" href="css/hamburgers.css" />
 
 <script src="js/demo.js"> </script>
 <script src="https://js.stripe.com/v3/"></script>
@@ -41,6 +42,51 @@ crossorigin="anonymous"></script>
 
 <!-- New navbar -->
 <link rel="stylesheet" type="text/css" href="css/menu.css">
+
+<script>
+setTimeout( function() { scroll(0,0); }, 1);
+
+if(window.location.hash === "#part-historique") {
+  setTimeout( function() { scrollToAnchor('#part-historique'); }, 100);
+}
+function scrollToAnchor(aid){
+  var aTag = $(aid);
+  $('html,body').animate({scrollTop: aTag.offset().top},'slow');
+}
+$('.dropdown-toggle').on('click', function(e){
+  e.preventDefault();
+})
+$(document).ready(function(){
+  $('#menuLink').on('click', function(){
+    if(!$(this).hasClass('active')){
+      $(this).addClass('active')
+      $(this).css('left', '225px')
+      $(this).css('position', 'relative')
+    } else {
+      $(this).removeClass('active')
+      $(this).css('left', '0')
+      $(this).css('position', 'fixed')
+    }
+    e.preventDefault();
+  })
+})
+
+
+</script>
+
+<style>
+.dropdown-toggle::after {
+  content: none;
+}
+
+.disabled{
+  opacity: 1 !important;
+}
+
+.btn.focus, .btn:focus {
+  box-shadow: none !important;
+}
+</style>
 
 <%-header%>
 <body>
@@ -56,72 +102,230 @@ crossorigin="anonymous"></script>
         </li>
         <li>
           <button class="btn" type="button">
-            <a href="/accueil">Accueil</a>
+            <a href="/accueil">ACCUEIL</a>
           </button>
         </li>
         <li>
           <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropDownPacks" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Packs
+              PACKS
             </button>
             <div class="dropdown-menu" aria-labelledby="dropDownPacks">
-              <a class="dropdown-item" href="pack/pack-privé">Pack - Privé</a>
-              <a class="dropdown-item" href="pack/pack-champion">Pack - Champion</a>
-              <a class="dropdown-item" href="pack/pack-fun">Pack - Fun</a>
+              <a class="dropdown-item" href="pack/pack-privé">PACK - PRIVE</a>
+              <a class="dropdown-item" href="pack/pack-champion">PACK - CHAMPION</a>
+              <a class="dropdown-item" href="pack/pack-fun">PACK - FUN</a>
             </div>
           </div>
         </li>
         <li>
           <div class="dropdown">
             <button class="btn dropdown-toggle" type="button" id="dropDownPronos" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              Pronostics
+              PRONOSTICS
             </button>
             <div class="dropdown-menu" aria-labelledby="dropDownPronos">
-              <a class="dropdown-item" href="/pronos/pack-privé">Pronostic - Privé</a>
-              <a class="dropdown-item" href="/pronos/pack-champion">Pronostic - Champion</a>
-              <a class="dropdown-item" href="/pronos/pack-fun">Pronostic - Fun</a>
+              <a class="dropdown-item" href="/pronos/pack-privé">PRONOSTIC - PRIVE</a>
+              <a class="dropdown-item" href="/pronos/pack-champion">PRONOSTIC - CHAMPION</a>
+              <a class="dropdown-item" href="/pronos/pack-fun">PRONOSTIC - FUN</a>
             </div>
           </div>
         </li>
         <li>
           <button class="btn" type="button">
-            <a href="/historique">Historique</a>
+            <a href="/accueil#part-historique" onclick="scrollToAnchor('#part-historique')">HISTORIQUE / BILAN</a>
           </button>
         </li>
         <% if(isNullOrUndefined(user)){ %>
           <li>
             <button class="btn" type="button">
-              <a href="/connexion">Connexion</a>
+              <a href="/connexion">CONNEXION</a>
             </button>
           </li>
           <% } else { %>
             <li>
               <button class="btn" type="button">
-                <a href="/espace-perso">Espace perso</a>
+                <a href="/espace-perso">ESPACE PERSO</a>
               </button>
             </li>
             <% if(user.isAdmin){ %>
               <li>
                 <button class="btn" type="button">
-                  <a href="/espace-admin">Espace admin</a>
+                  <a href="/espace-admin">ESPACE ADMIN</a>
                 </button>
               </li>
               <% } %>
               <li>
                 <button class="btn" type="button">
-                  <a href="/deconnexion">Déconnexion</a>
+                  <a href="/deconnexion">DÉCONNEXION</a>
                 </button>
               </li>
               <% } %>
               <li id="div-menu-social">
-                <a href="https://www.facebook.com/profile.php?id=100009631203408" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://www.instagram.com/youenn_yapronos" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://www.snapchat.com/add/ya-35" target="_blank"><i class="fab fa-snapchat"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=100009631203408" target="_blank"><i class="fab fa-facebook-f fa-lg"></i></a>
+                <a href="https://www.instagram.com/youenn_yapronos" target="_blank"><i class="fab fa-instagram fa-lg"></i></a>
+                <a href="https://www.snapchat.com/add/ya-35" target="_blank"><i class="fab fa-snapchat fa-lg"></i></a>
               </li>
             </ul>
-            <label class="mobile-left mobmenu-toggle" for="mobile-menu-toggle">+</label>
+            <a href="" id="menuLink" class="menu-link d-block d-sm-none" >
+              <span>
+                <label class="mobile-left mobmenu-toggle" for="mobile-menu-toggle"></label>
+              </span>
+            </a>
           </nav>
         </div>
+
+        <style>
+        #layout,
+        #menu,
+        .menu-link {
+          -webkit-transition: all 0.2s ease-out;
+          -moz-transition: all 0.2s ease-out;
+          -ms-transition: all 0.2s ease-out;
+          -o-transition: all 0.2s ease-out;
+          transition: all 0.2s ease-out;
+        }
+
+        .menu-link.active{
+          left: 160px;
+        }
+
+        #menu {
+          margin-left: -160px; /* "#menu" width */
+          width: 160px;
+          position: fixed;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          z-index: 1000; /* so the menu or its navicon stays above all content */
+          background: #191818;
+          overflow-y: auto;
+          -webkit-overflow-scrolling: touch;
+        }
+        #menu a {
+          color: #999;
+          border: none;
+          white-space: normal;
+          padding: 0.625em 1em;
+        }
+
+        #menu .pure-menu-open {
+          background: transparent;
+          border: 0;
+        }
+
+        #menu .pure-menu ul {
+          border: none;
+          background: transparent;
+          display: block;
+        }
+
+        #menu .pure-menu ul,
+        #menu .pure-menu .menu-item-divided {
+          border-top: 1px solid #333;
+        }
+
+        #menu .pure-menu li a:hover,
+        #menu .pure-menu li a:focus {
+          background: #333;
+        }
+
+        .menu-link {
+          position: fixed;
+          display: block; /* show this only on small screens */
+          top: 0;
+          left: 0; /* "#menu width" */
+          background: #000;
+          background: rgba(0,0,0,0.7);
+          font-size: 11px; /* change this value to increase/decrease button size */
+          z-index: 10;
+          width: 4em;
+          height: 4em;
+          padding: 1em;
+        }
+
+        .menu-link:hover,
+        .menu-link:focus {
+          background: #000;
+        }
+
+        .menu-link span {
+          position: relative;
+          display: block;
+          margin-top: 0.9em;
+        }
+
+        .menu-link span,
+        .menu-link span:before,
+        .menu-link span:after {
+          background-color: #fff;
+          width: 100%;
+          height: .2em;
+          -webkit-transition: all 0.4s;
+          -moz-transition: all 0.4s;
+          -ms-transition: all 0.4s;
+          -o-transition: all 0.4s;
+          transition: all 0.4s;
+        }
+
+        .menu-link span:before,
+        .menu-link span:after {
+          position: absolute;
+          top: -.55em;
+          content: " ";
+        }
+
+        .menu-link span:after {
+          top: .55em;
+        }
+
+        .menu-link.active span {
+          background: transparent;
+        }
+
+        .menu-link.active span:before {
+          -webkit-transform: rotate(45deg) translate(.5em, .4em);
+          -moz-transform: rotate(45deg) translate(.5em, .4em);
+          -ms-transform: rotate(45deg) translate(.5em, .4em);
+          -o-transform: rotate(45deg) translate(.5em, .4em);
+          transform: rotate(45deg) translate(.5em, .4em);
+        }
+
+        .menu-link.active span:after {
+          -webkit-transform: rotate(-45deg) translate(.4em, -.3em);
+          -moz-transform: rotate(-45deg) translate(.4em, -.3em);
+          -ms-transform: rotate(-45deg) translate(.4em, -.3em);
+          -o-transform: rotate(-45deg) translate(.4em, -.3em);
+          transform: rotate(-45deg) translate(.4em, -.3em);
+        }
+
+        #menu .pure-menu-heading {
+          font-size: 125%;
+          font-weight: 300;
+          letter-spacing: 0.1em;
+          color: #fff;
+          margin-top: 0;
+          padding: 0.5em 0.8em;
+          text-transform: uppercase;
+        }
+        #menu .pure-menu-heading:hover,
+        #menu .pure-menu-heading:focus {
+          color: #999;
+        }
+
+        #menu .pure-menu-selected {
+          background: #1f8dd6;
+        }
+
+        #menu .pure-menu-selected a {
+          color: #fff;
+        }
+
+        #menu li.pure-menu-selected a:hover,
+        #menu li.pure-menu-selected a:focus {
+          background: none;
+        }
+
+
+        </style>
 
 
 
@@ -194,8 +398,8 @@ crossorigin="anonymous"></script>
                     </div>
                   </div>
                 </div>
-                <div class="row" style="background-color:white">
-                  <div class="risky-play text-center col-sm-12" style="color:black">
+                <div class="row warning-risky-play">
+                  <div class="risky-play text-center col-sm-12">
                     Jouer comporte des risques : endettement, isolement, dépendance.<br>Pour être aidé, appelez le 09-74-75-13-13 (appel non surtaxé)
                   </div>
                 </div>

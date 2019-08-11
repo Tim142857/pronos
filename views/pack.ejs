@@ -34,11 +34,12 @@
 <div class="container" id='page-content'>
   <div class="col-12  col-sm-4 offset-sm-4 col-md-6 offset-md-3">
     <a><img class="img-fluid img-pack" src="/img/packs/<%= pack.name %>.png"></a>
+    <p style="padding: 2% 15%"><%- pack.description %></p>
   </div>
   <br/><br/>
   <div class="col-12 col-md-6 offset-md-3">
     <% if(isNullOrUndefined(user.defaultSource)) {%>
-      <form id="payment-form" class="invisible">
+      <form id="payment-form" class="">
         <div class="form-row">
           <label for="card-element" class="fadeIn second">
             Informations de paiement

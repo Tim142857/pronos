@@ -9,11 +9,7 @@ const Message = sequelize.define('message', {
     autoIncrement: true,
     primaryKey: true,
   },
-  name: {
-    type: Sequelize.STRING,
-    required: false
-  },
-  firstName: {
+  pseudo: {
     type: Sequelize.STRING,
     required: false
   },

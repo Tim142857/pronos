@@ -28,7 +28,13 @@ a:hover{
 
 
 footer{
-  background: url('../img/background.jpg');
+  /* background: url('../img/background.jpg'); */
+  background-color: white;
+  color: black !important;
+}
+
+.warning-risky-play {
+  background-color: black;
   color: white;
 }
 
@@ -38,13 +44,10 @@ footer .logo-container img{
   width: 260px;
 }
 
-footer .social {
-}
 
 footer .social span {
   width: 100%;
   font-size: 20px;
-  color: white;
   font-style: italic;
 }
 
@@ -54,7 +57,7 @@ footer .social a{
 }
 
 footer a {
-  color: white;
+  color: black;
 }
 
 footer .risky-play{
@@ -428,6 +431,15 @@ input[type=text]:placeholder, input[type=password]:placeholder {
 /* For Mobiles */
 
 @media only screen and (max-width: 480px) {
+
+  .title-part{
+    font-size: 30px !important;
+  }
+
+  footer{
+    font-size: 12px;
+  }
+
   footer .social {
     padding-top: 0px;
   }
@@ -505,6 +517,7 @@ nav .dropdown-item:hover{
 
 #div-menu-social{
   float: right;
+  margin-right: 15px;
 }
 
 #div-menu-social a{

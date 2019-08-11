@@ -317,15 +317,13 @@ app.post('/create-prono', Middlewares.isAdmin, async function (req, res) {
 })
 
 app.post('/create-message', function(req, res, next){
-  let name = req.body.name;
-  let firstName = req.body.firstName;
+  let pseudo = req.body.pseudo;
   let email = req.body.email;
   let message = req.body.message;
   let userId = req.session && req.session.user ? req.session.user.id : null;
 
   return Message.create({
-    name,
-    firstName,
+    pseudo,
     email,
     message,
     userId
